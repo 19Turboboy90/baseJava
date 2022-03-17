@@ -11,13 +11,12 @@ public class ArrayStorage {
     private final Resume[] storage = new Resume[10000];
     private int size;
 
-    public Resume update(Resume resume) {
-        System.out.println(checkingResume(resume.getUuid()) ? "resume " + resume.getUuid() + " found" : "ERROR: resume " + resume.getUuid() + " is missing");
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(resume.getUuid())) {
-                storage[i].setUuid("uuid100");
-                return storage[i];
-            }
+    public Resume update(Resume resume, String uuid) {
+        int index = checkingResume(uuid);
+        if (index == -1) {
+            System.out.println("ERROR: resume " + resume.getUuid() + " is missing");
+        } else {
+            return storage[index] = resume;
         }
         return null;
     }
@@ -28,33 +27,36 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        checkingSize();
-        if(!checkingResume(resume.getUuid())){
-            storage[size] = resume;
-            size++;
-        } else {
-            System.out.println("resume " + resume.getUuid() + " found");
+        if (checkingSize()) {
+            int index = checkingResume(resume.getUuid());
+            if (index == -1) {
+                storage[size] = resume;
+                size++;
+            } else {
+                System.out.println("resume " + resume.getUuid() + " already exists");
+            }
         }
     }
 
     public Resume get(String uuid) {
-        System.out.println(checkingResume(uuid) ? "resume " + uuid + " found" : "ERROR: resume " + uuid + " is missing");
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return storage[i];
-            }
+        int index = checkingResume(uuid);
+        if (index == -1) {
+            System.out.println("ERROR: resume " + uuid + " is missing");
+        } else {
+            return storage[index];
         }
         return null;
     }
 
     public void delete(String uuid) {
-        System.out.println(checkingResume(uuid) ? "resume " + uuid + " found" : "ERROR: resume " + uuid + " is missing");
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                System.arraycopy(storage, i + 1, storage, i, size - i);
-                size--;
-                break;
-            }
+        int index = checkingResume(uuid);
+        if (index == -1) {
+            System.out.println("ERROR: resume " + uuid + " is missing");
+
+        } else {
+            System.out.println("Resume " + uuid + " deleted");
+            System.arraycopy(storage, index + 1, storage, index, size - index);
+            size--;
         }
     }
 
@@ -69,18 +71,20 @@ public class ArrayStorage {
         return size;
     }
 
-    private boolean checkingResume(String uuid) {
+    private int checkingResume(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
-                return true;
+                return i;
             }
         }
-        return false;
+        return -1;
     }
 
-    private void checkingSize() {
+    private boolean checkingSize() {
         if (size >= storage.length) {
             System.out.println("The array is full");
+            return false;
         }
+        return true;
     }
 }
