@@ -12,6 +12,10 @@ public class Resume {
         return uuid;
     }
 
+    public Resume(String uuid) {
+        this.uuid = uuid;
+    }
+
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }

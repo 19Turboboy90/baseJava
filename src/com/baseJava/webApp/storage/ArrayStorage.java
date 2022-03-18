@@ -11,14 +11,14 @@ public class ArrayStorage {
     private final Resume[] storage = new Resume[10000];
     private int size;
 
-    public Resume update(Resume resume, String uuid) {
-        int index = checkingResume(uuid);
+    public void update(Resume resume) {
+        int index = findIndex(resume.getUuid());
         if (index == -1) {
             System.out.println("ERROR: resume " + resume.getUuid() + " is missing");
         } else {
-            return storage[index] = resume;
+            storage[index] = resume;
+            System.out.println("Resume " + resume + " updated");
         }
-        return null;
     }
 
     public void clear() {
@@ -27,8 +27,8 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        if (checkingSize()) {
-            int index = checkingResume(resume.getUuid());
+        if (hasFreeCells()) {
+            int index = findIndex(resume.getUuid());
             if (index == -1) {
                 storage[size] = resume;
                 size++;
@@ -39,23 +39,22 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        int index = checkingResume(uuid);
+        int index = findIndex(uuid);
         if (index == -1) {
             System.out.println("ERROR: resume " + uuid + " is missing");
-        } else {
-            return storage[index];
+            return null;
         }
-        return null;
+        return storage[index];
     }
 
     public void delete(String uuid) {
-        int index = checkingResume(uuid);
+        int index = findIndex(uuid);
         if (index == -1) {
             System.out.println("ERROR: resume " + uuid + " is missing");
 
         } else {
             System.out.println("Resume " + uuid + " deleted");
-            System.arraycopy(storage, index + 1, storage, index, size - index);
+            System.arraycopy(storage, index + 1, storage, index, size - 1);
             size--;
         }
     }
@@ -71,7 +70,7 @@ public class ArrayStorage {
         return size;
     }
 
-    private int checkingResume(String uuid) {
+    private int findIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
@@ -80,7 +79,7 @@ public class ArrayStorage {
         return -1;
     }
 
-    private boolean checkingSize() {
+    private boolean hasFreeCells() {
         if (size >= storage.length) {
             System.out.println("The array is full");
             return false;
