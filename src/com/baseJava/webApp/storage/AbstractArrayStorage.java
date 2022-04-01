@@ -17,6 +17,18 @@ public abstract class AbstractArrayStorage implements Storage {
         return size;
     }
 
+    public void save(Resume resume) {
+        if (hasFreeCells()) {
+            int index = findIndex(resume.getUuid());
+            if (index >= 0) {
+                System.out.println("resume " + resume.getUuid() + " already exists");
+            } else {
+                addElement(resume, index);
+                size++;
+            }
+        }
+    }
+
     public void update(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index == -1) {
@@ -53,7 +65,6 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = findIndex(uuid);
         if (index == -1) {
             System.out.println("ERROR: resume " + uuid + " is missing");
-
         } else {
             System.out.println("Resume " + uuid + " deleted");
             System.arraycopy(storage, index + 1, storage, index, size - 1 - index);
@@ -64,6 +75,8 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
+
+    protected abstract void addElement(Resume resume, int index);
 
     protected abstract int findIndex(String uuid);
 }

@@ -7,16 +7,8 @@ import com.baseJava.webApp.model.Resume;
  */
 public class ArrayStorage extends AbstractArrayStorage {
     @Override
-    public void save(Resume resume) {
-        if (hasFreeCells()) {
-            int index = findIndex(resume.getUuid());
-            if (index == -1) {
-                storage[size] = resume;
-                size++;
-            } else {
-                System.out.println("resume " + resume.getUuid() + " already exists");
-            }
-        }
+    protected void addElement(Resume resume, int index) {
+        storage[size] = resume;
     }
 
     @Override

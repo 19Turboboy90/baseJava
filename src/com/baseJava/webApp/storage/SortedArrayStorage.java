@@ -5,23 +5,14 @@ import com.baseJava.webApp.model.Resume;
 import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
+
     @Override
-    public void save(Resume resume) {
-        if (hasFreeCells()) {
-            int position = Math.abs(findIndex(resume.getUuid()));
-            if (storage[position - 1] == null) {
-                storage[position - 1] = resume;
-            } else {
-                if (storage[position - 1].equals(resume)) {
-                    System.out.println("resume " + resume.getUuid() + " already exists");
-                } else {
-                    int index = position - 1;
-                    System.arraycopy(storage, index, storage, position, size - index);
-                    storage[index] = resume;
-                }
-            }
-            size++;
+    protected void addElement(Resume resume, int index) {
+        int position = -index - 1;
+        if (storage[position] != null) {
+            System.arraycopy(storage, position, storage, position + 1, size - position);
         }
+        storage[position] = resume;
     }
 
     @Override
