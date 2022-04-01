@@ -31,7 +31,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void update(Resume resume) {
         int index = findIndex(resume.getUuid());
-        if (index == -1) {
+        if (index < 0) {
             System.out.println("ERROR: resume " + resume.getUuid() + " is missing");
         } else {
             storage[index] = resume;
@@ -41,7 +41,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public Resume get(String uuid) {
         int index = findIndex(uuid);
-        if (index == -1) {
+        if (index < 0) {
             System.out.println("ERROR: resume " + uuid + " is missing");
             return null;
         }
@@ -63,7 +63,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void delete(String uuid) {
         int index = findIndex(uuid);
-        if (index == -1) {
+        if (index < 0) {
             System.out.println("ERROR: resume " + uuid + " is missing");
         } else {
             System.out.println("Resume " + uuid + " deleted");
