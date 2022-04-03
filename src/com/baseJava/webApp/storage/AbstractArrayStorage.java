@@ -53,7 +53,7 @@ public abstract class AbstractArrayStorage implements Storage {
         size = 0;
     }
 
-    protected boolean hasFreeCells() {
+    private boolean hasFreeCells() {
         if (size >= storage.length) {
             System.out.println("The array is full");
             return false;
@@ -73,7 +73,7 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+        return Arrays.copyOf(storage, size);
     }
 
     protected abstract void addElement(Resume resume, int index);
