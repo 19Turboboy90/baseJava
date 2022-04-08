@@ -1,5 +1,7 @@
 package com.baseJava.webApp.storage;
 
+import com.baseJava.webApp.exception.NotExistStorageException;
+import com.baseJava.webApp.exception.StorageException;
 import com.baseJava.webApp.model.Resume;
 
 import java.util.Arrays;
@@ -21,7 +23,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (hasFreeCells()) {
             int index = findIndex(resume.getUuid());
             if (index >= 0) {
-                System.out.println("resume " + resume.getUuid() + " already exists");
+                throw new StorageException("Storage overflow", resume.getUuid());
             } else {
                 addElement(resume, index);
                 size++;
@@ -32,7 +34,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index < 0) {
-            System.out.println("ERROR: resume " + resume.getUuid() + " is missing");
+            throw new NotExistStorageException(resume.getUuid());
         } else {
             storage[index] = resume;
             System.out.println("Resume " + resume + " updated");
@@ -42,8 +44,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume get(String uuid) {
         int index = findIndex(uuid);
         if (index < 0) {
-            System.out.println("ERROR: resume " + uuid + " is missing");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
@@ -64,7 +65,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int index = findIndex(uuid);
         if (index < 0) {
-            System.out.println("ERROR: resume " + uuid + " is missing");
+            throw new NotExistStorageException(uuid);
         } else {
             System.out.println("Resume " + uuid + " deleted");
             System.arraycopy(storage, index + 1, storage, index, size - 1 - index);
