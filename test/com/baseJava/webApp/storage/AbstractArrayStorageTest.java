@@ -4,9 +4,10 @@ import com.baseJava.webApp.exception.ExistStorageException;
 import com.baseJava.webApp.exception.NotExistStorageException;
 import com.baseJava.webApp.exception.StorageException;
 import com.baseJava.webApp.model.Resume;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public abstract class AbstractArrayStorageTest {
     private final Storage storage;
@@ -31,14 +32,14 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void size() {
         storage.size();
-        Assert.assertEquals(3, storage.size());
+        assertEquals(3, storage.size());
     }
 
     @Test
     public void save() {
-        Assert.assertEquals(3, storage.size());
+        assertEquals(3, storage.size());
         storage.save(new Resume("uuid4"));
-        Assert.assertEquals(4, storage.size());
+        assertEquals(4, storage.size());
     }
 
     @Test(expected = ExistStorageException.class)
@@ -51,13 +52,13 @@ public abstract class AbstractArrayStorageTest {
     public void update() {
         Resume resume = new Resume("uuid1");
         storage.update(resume);
-        Assert.assertEquals("uuid1", resume.getUuid());
+        assertEquals("uuid1", resume.getUuid());
     }
 
     @Test
     public void get() {
         Resume resume = storage.get("uuid1");
-        Assert.assertEquals("uuid1", resume.getUuid());
+        assertEquals("uuid1", resume.getUuid());
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -68,13 +69,13 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void clear() {
         storage.clear();
-        Assert.assertEquals(0, storage.size());
+        assertEquals(0, storage.size());
     }
 
     @Test
     public void delete() {
         storage.delete("uuid3");
-        Assert.assertEquals(2, storage.size());
+        assertEquals(2, storage.size());
     }
 
     @Test
