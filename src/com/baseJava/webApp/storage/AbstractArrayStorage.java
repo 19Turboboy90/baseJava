@@ -1,5 +1,6 @@
 package com.baseJava.webApp.storage;
 
+import com.baseJava.webApp.exception.ExistStorageException;
 import com.baseJava.webApp.exception.NotExistStorageException;
 import com.baseJava.webApp.exception.StorageException;
 import com.baseJava.webApp.model.Resume;
@@ -19,16 +20,17 @@ public abstract class AbstractArrayStorage implements Storage {
         return size;
     }
 
-    public void save(Resume resume) {
+    public boolean save(Resume resume) {
         if (hasFreeCells()) {
             int index = findIndex(resume.getUuid());
             if (index >= 0) {
-                throw new StorageException("Storage overflow", resume.getUuid());
+                throw new ExistStorageException(resume.getUuid());
             } else {
                 addElement(resume, index);
                 size++;
             }
         }
+        return false;
     }
 
     public void update(Resume resume) {
@@ -55,9 +57,8 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     private boolean hasFreeCells() {
-        if (size >= storage.length) {
-            System.out.println("The array is full");
-            return false;
+        if (size >= STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow");
         }
         return true;
     }
@@ -67,7 +68,6 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index < 0) {
             throw new NotExistStorageException(uuid);
         } else {
-            System.out.println("Resume " + uuid + " deleted");
             System.arraycopy(storage, index + 1, storage, index, size - 1 - index);
             size--;
         }
