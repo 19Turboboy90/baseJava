@@ -20,7 +20,7 @@ public abstract class AbstractArrayStorage implements Storage {
         return size;
     }
 
-    public boolean save(Resume resume) {
+    public void save(Resume resume) {
         if (hasFreeCells()) {
             int index = findIndex(resume.getUuid());
             if (index >= 0) {
@@ -30,7 +30,6 @@ public abstract class AbstractArrayStorage implements Storage {
                 size++;
             }
         }
-        return false;
     }
 
     public void update(Resume resume) {

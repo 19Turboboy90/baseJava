@@ -7,7 +7,7 @@ public interface Storage {
 
     void clear();
 
-    boolean save(Resume resume);
+    void save(Resume resume);
 
     Resume get(String uuid);
 
