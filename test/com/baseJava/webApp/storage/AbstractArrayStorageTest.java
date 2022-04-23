@@ -21,6 +21,9 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_3 = "uuid3";
     private static final Resume RESUME_3 = new Resume(UUID_3);
 
+    private static final String UUID_4 = "uuid4";
+    private static final Resume RESUME_4 = new Resume(UUID_4);
+
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
     }
@@ -30,28 +33,26 @@ public abstract class AbstractArrayStorageTest {
         storage.clear();
         storage.save(RESUME_1);
         storage.save(RESUME_2);
+        storage.save(RESUME_3);
     }
 
     @Test
     public void save() {
-        storage.save(RESUME_3);
-        assertEquals(RESUME_3, storage.get(RESUME_3.getUuid()));
-        assertEquals(3,storage.size());
-    }
-
-    private void assertGet() {
+        storage.save(RESUME_4);
+        assertEquals(RESUME_4, storage.get(RESUME_4.getUuid()));
+        assertEquals(4, storage.size());
     }
 
     @Test(expected = StorageException.class)
     public void saveOverflowArray() {
         try {
-            for (int i = 3; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume(UUID_1 + i));
+            for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
+                storage.save(new Resume());
             }
         } catch (StorageException e) {
             fail("premature overflow");
         }
-        storage.save(new Resume("dummy"));
+        storage.save(new Resume());
     }
 
     @Test(expected = ExistStorageException.class)
@@ -79,7 +80,7 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void delete() {
         storage.delete(UUID_1);
-        assertEquals(1, storage.size());
+        assertEquals(2, storage.size());
         assertEquals(UUID_1, storage.get(UUID_1).getUuid());
     }
 
@@ -90,10 +91,8 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void getAll() {
-        Resume[] resume = storage.getAll();
-        assertEquals(2,resume.length);
-        assertEquals(RESUME_1, storage.get(UUID_1));
-        assertEquals(RESUME_2, storage.get(UUID_2));
+        Resume[] resumes = {RESUME_1, RESUME_2, RESUME_3};
+        assertArrayEquals(resumes, storage.getAll());
     }
 
     @Test
@@ -105,6 +104,6 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void size() {
         storage.size();
-        assertEquals(2, storage.size());
+        assertEquals(3, storage.size());
     }
 }

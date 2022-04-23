@@ -31,6 +31,13 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
+    private boolean hasFreeCells() {
+        if (size >= STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow");
+        }
+        return true;
+    }
+
     public void update(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index < 0) {
@@ -53,13 +60,6 @@ public abstract class AbstractArrayStorage implements Storage {
         size = 0;
     }
 
-    private boolean hasFreeCells() {
-        if (size >= STORAGE_LIMIT) {
-            throw new StorageException("Storage overflow");
-        }
-        return true;
-    }
-
     public void delete(String uuid) {
         int index = findIndex(uuid);
         if (index < 0) {
@@ -67,7 +67,6 @@ public abstract class AbstractArrayStorage implements Storage {
         }
         System.arraycopy(storage, index + 1, storage, index, size - 1 - index);
         size--;
-
     }
 
     public Resume[] getAll() {
