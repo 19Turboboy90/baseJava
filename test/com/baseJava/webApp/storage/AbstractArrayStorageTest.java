@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public abstract class AbstractArrayStorageTest {
-    private final Storage storage;
+    private final AbstractArrayStorage storage;
 
     private static final String UUID_1 = "uuid1";
     private static final Resume RESUME_1 = new Resume(UUID_1);
@@ -24,7 +24,7 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_4 = "uuid4";
     private static final Resume RESUME_4 = new Resume(UUID_4);
 
-    public AbstractArrayStorageTest(Storage storage) {
+    public AbstractArrayStorageTest(AbstractArrayStorage storage) {
         this.storage = storage;
     }
 
@@ -34,6 +34,23 @@ public abstract class AbstractArrayStorageTest {
         storage.save(RESUME_1);
         storage.save(RESUME_2);
         storage.save(RESUME_3);
+    }
+
+    @Test
+    public void update() {
+        storage.update(RESUME_1);
+        assertSame(RESUME_1, storage.get(UUID_1));
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void updateNoExistResume() {
+        storage.update(RESUME_4);
+    }
+
+    @Test
+    public void clear() {
+        storage.clear();
+        assertEquals(0, storage.size());
     }
 
     @Test
@@ -58,17 +75,6 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = ExistStorageException.class)
     public void saveExistingResume() {
         storage.save(RESUME_1);
-    }
-
-    @Test
-    public void update() {
-        storage.update(RESUME_1);
-        assertSame(RESUME_1, storage.get(UUID_1));
-    }
-
-    @Test(expected = NotExistStorageException.class)
-    public void updateNoExistResume() {
-        storage.update(RESUME_4);
     }
 
     @Test
@@ -97,12 +103,6 @@ public abstract class AbstractArrayStorageTest {
     public void getAll() {
         Resume[] resumes = {RESUME_1, RESUME_2, RESUME_3};
         assertArrayEquals(resumes, storage.getAll());
-    }
-
-    @Test
-    public void clear() {
-        storage.clear();
-        assertEquals(0, storage.size());
     }
 
     @Test

@@ -1,14 +1,14 @@
 package com.baseJava.webApp;
 
 import com.baseJava.webApp.model.Resume;
-import com.baseJava.webApp.storage.ArrayStorage;
+import com.baseJava.webApp.storage.ListStorage;
 import com.baseJava.webApp.storage.Storage;
 
 /**
  * Test for your com.baseJava.webApp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    static final Storage ARRAY_STORAGE = new ArrayStorage();
+    static final Storage ARRAY_STORAGE = new ListStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1");
@@ -21,7 +21,7 @@ public class MainTestArrayStorage {
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
-        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+//        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
         ARRAY_STORAGE.update(new Resume("uuid2"));
         printAll();

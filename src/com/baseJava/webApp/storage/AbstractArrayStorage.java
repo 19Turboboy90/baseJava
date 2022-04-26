@@ -1,58 +1,18 @@
 package com.baseJava.webApp.storage;
 
-import com.baseJava.webApp.exception.ExistStorageException;
-import com.baseJava.webApp.exception.NotExistStorageException;
 import com.baseJava.webApp.exception.StorageException;
 import com.baseJava.webApp.model.Resume;
 
 import java.util.Arrays;
 
-/**
- * Array based storage for Resumes
- */
-public abstract class AbstractArrayStorage implements Storage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
 
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size;
 
-    public int size() {
-        return size;
-    }
-
-    public void save(Resume resume) {
-        if (hasFreeCells()) {
-            int index = findIndex(resume.getUuid());
-            if (index >= 0) {
-                throw new ExistStorageException(resume.getUuid());
-            }
-            addElement(resume, index);
-            size++;
-        }
-    }
-
-    private boolean hasFreeCells() {
-        if (size >= STORAGE_LIMIT) {
-            throw new StorageException("Storage overflow");
-        }
-        return true;
-    }
-
-    public void update(Resume resume) {
-        int index = findIndex(resume.getUuid());
-        if (index < 0) {
-            throw new NotExistStorageException(resume.getUuid());
-        }
+    public void updateStorage(Resume resume, int index) {
         storage[index] = resume;
-        System.out.println("Resume " + resume + " updated");
-    }
-
-    public Resume get(String uuid) {
-        int index = findIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        }
-        return storage[index];
     }
 
     public void clear() {
@@ -60,11 +20,23 @@ public abstract class AbstractArrayStorage implements Storage {
         size = 0;
     }
 
-    public void delete(String uuid) {
-        int index = findIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
+    public void saveInStorage(Resume resume, int index) {
+        hasFreeCells();
+        addElement(resume, index);
+        size++;
+    }
+
+    private void hasFreeCells() {
+        if (size >= STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow");
         }
+    }
+
+    public Resume getUUid(String uuid, int index) {
+        return storage[index];
+    }
+
+    public void deleteResume(String uuid, int index) {
         System.arraycopy(storage, index + 1, storage, index, size - 1 - index);
         size--;
     }
@@ -73,7 +45,7 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOf(storage, size);
     }
 
-    protected abstract void addElement(Resume resume, int index);
-
-    protected abstract int findIndex(String uuid);
+    public int size() {
+        return size;
+    }
 }
