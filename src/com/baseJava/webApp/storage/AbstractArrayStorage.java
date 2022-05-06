@@ -26,11 +26,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size++;
     }
 
-    @Override
-    protected boolean isExistResume(Object index) {
-        return (Integer) index >= 0;
-    }
-
     private void hasFreeCells() {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage overflow");
@@ -52,6 +47,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     public int size() {
         return size;
+    }
+
+    @Override
+    protected boolean isExistResume(Object index) {
+        return (Integer) index >= 0;
     }
 
     protected abstract void addElement(Resume resume, int index);

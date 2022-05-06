@@ -49,7 +49,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExistResume(Object keyResume) {
-        return storage.containsKey((String) keyResume);
+    protected boolean isExistResume(Object uuid) {
+        return storage.containsKey((String) uuid);
     }
 }
