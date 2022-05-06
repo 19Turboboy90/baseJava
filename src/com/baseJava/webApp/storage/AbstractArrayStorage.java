@@ -11,8 +11,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size;
 
-    public void updateStorage(Resume resume, int index) {
-        storage[index] = resume;
+    public void updateStorage(Resume resume, Object index) {
+        storage[(Integer) index] = resume;
     }
 
     public void clear() {
@@ -20,10 +20,15 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public void saveInStorage(Resume resume, int index) {
+    public void saveStorage(Resume resume, Object index) {
         hasFreeCells();
-        addElement(resume, index);
+        addElement(resume, (Integer) index);
         size++;
+    }
+
+    @Override
+    protected boolean isExistResume(Object index) {
+        return (Integer) index >= 0;
     }
 
     private void hasFreeCells() {
@@ -32,12 +37,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    public Resume getUUid(String uuid, int index) {
-        return storage[index];
+    public Resume getResume(Object index) {
+        return storage[(Integer) index];
     }
 
-    public void deleteResume(String uuid, int index) {
-        System.arraycopy(storage, index + 1, storage, index, size - 1 - index);
+    public void deleteResume(Object index) {
+        System.arraycopy(storage, (Integer) index + 1, storage, (Integer) index, size - 1 - (Integer) index);
         size--;
     }
 
@@ -48,4 +53,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     public int size() {
         return size;
     }
+
+    protected abstract void addElement(Resume resume, int index);
 }

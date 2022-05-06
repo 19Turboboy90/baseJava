@@ -3,14 +3,13 @@ package com.baseJava.webApp.storage;
 import com.baseJava.webApp.model.Resume;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    List<Resume> storage = new ArrayList<>();
+    private final List<Resume> storage = new ArrayList<>();
 
     @Override
-    public void updateStorage(Resume resume, int index) {
+    public void updateStorage(Resume resume, Object index) {
         storage.set(storage.indexOf(resume), resume);
     }
 
@@ -20,19 +19,18 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveInStorage(Resume resume, int index) {
-        addElement(resume, index);
-    }
-
-
-    @Override
-    public Resume getUUid(String uuid, int index) {
-        return storage.get(index);
+    protected void saveStorage(Resume resume, Object index) {
+        storage.add(resume);
     }
 
     @Override
-    public void deleteResume(String uuid, int index) {
-        storage.remove(index);
+    public Resume getResume(Object keyResume) {
+        return (Resume) keyResume;
+    }
+
+    @Override
+    public void deleteResume(Object keyResume) {
+        storage.remove(((Integer) keyResume).intValue());
     }
 
     @Override
@@ -46,13 +44,17 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void addElement(Resume resume, int index) {
-        storage.add(resume);
+    protected Integer findIndex(String uuid) {
+        for (int i = 0; i < storage.size(); i++) {
+            if (storage.get(i).getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return null;
     }
 
     @Override
-    protected int findIndex(String uuid) {
-        Resume searchResume = new Resume(uuid);
-        return Collections.binarySearch(storage, searchResume);
+    protected boolean isExistResume(Object keyResume) {
+        return keyResume != null;
     }
 }

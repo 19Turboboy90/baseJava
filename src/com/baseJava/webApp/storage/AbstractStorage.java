@@ -7,53 +7,52 @@ import com.baseJava.webApp.model.Resume;
 public abstract class AbstractStorage implements Storage {
 
     public void update(Resume resume) {
-        int index = findIndex(resume.getUuid());
-        if (index < 0) {
-            throw new NotExistStorageException(resume.getUuid());
-        }
-        updateStorage(resume, index);
+        Object keyResume = existResumeInStorage(resume.getUuid());
+        updateStorage(resume, keyResume);
         System.out.println("Resume " + resume + " updated");
     }
 
     @Override
     public void save(Resume resume) {
-        int index = findIndex(resume.getUuid());
-        if (index >= 0) {
-            throw new ExistStorageException(resume.getUuid());
-        }
-        saveInStorage(resume, index);
+        Object keyResume = notExistResumeInStorage(resume.getUuid());
+        saveStorage(resume, keyResume);
     }
 
     public Resume get(String uuid) {
-        int index = findIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        }
-        return getUUid(uuid, index);
+        Object keyResume = existResumeInStorage(uuid);
+        return (Resume) getResume(keyResume);
     }
 
     public void delete(String uuid) {
-        int index = findIndex(uuid);
-        if (index < 0) {
+        Object keyResume = existResumeInStorage(uuid);
+        deleteResume(keyResume);
+    }
+
+    private Object existResumeInStorage(String uuid) {
+        Object keyResume = findIndex(uuid);
+        if (!isExistResume(keyResume)) {
             throw new NotExistStorageException(uuid);
         }
-        deleteResume(uuid, index);
+        return keyResume;
     }
 
-    @Override
-    public Resume[] getAll() {
-        return new Resume[0];
+    private Object notExistResumeInStorage(String uuid) {
+        Object keyResume = findIndex(uuid);
+        if (isExistResume(keyResume)) {
+            throw new ExistStorageException(uuid);
+        }
+        return keyResume;
     }
 
-    protected abstract void deleteResume(String uuid, int index);
+    protected abstract void deleteResume(Object keyResume);
 
-    protected abstract Resume getUUid(String uuid, int index);
+    protected abstract Object getResume(Object keyResume);
 
-    protected abstract void updateStorage(Resume resume, int index);
+    protected abstract void updateStorage(Resume resume, Object keyResume);
 
-    protected abstract void saveInStorage(Resume resume, int index);
+    protected abstract void saveStorage(Resume resume, Object keyResume);
 
-    protected abstract void addElement(Resume resume, int index);
+    protected abstract Object findIndex(String uuid);
 
-    protected abstract int findIndex(String uuid);
+    protected abstract boolean isExistResume(Object keyResume);
 }
