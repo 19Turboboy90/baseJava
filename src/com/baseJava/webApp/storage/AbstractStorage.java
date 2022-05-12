@@ -4,7 +4,13 @@ import com.baseJava.webApp.exception.ExistStorageException;
 import com.baseJava.webApp.exception.NotExistStorageException;
 import com.baseJava.webApp.model.Resume;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 public abstract class AbstractStorage implements Storage {
+
+    private static final Comparator<Resume> RESUME_NAME_COMPARATOR = Comparator.comparing(Resume::getFullName);
 
     public void update(Resume resume) {
         Object searchKey = findExistedSearchKey(resume.getUuid());
@@ -28,6 +34,12 @@ public abstract class AbstractStorage implements Storage {
         deleteResume(searchKey);
     }
 
+    public List<Resume> getAllSorted() {
+        ArrayList<Resume> listResume = new ArrayList<>(getListResume());
+        listResume.sort(RESUME_NAME_COMPARATOR);
+        return listResume;
+    }
+
     private Object findExistedSearchKey(String uuid) {
         Object searchKey = findIndex(uuid);
         if (!isExistResume(searchKey)) {
@@ -44,13 +56,15 @@ public abstract class AbstractStorage implements Storage {
         return searchKey;
     }
 
-    protected abstract void deleteResume(Object searchKey);
-
-    protected abstract Object getResume(Object searchKey);
-
     protected abstract void updateStorage(Resume resume, Object searchKey);
 
     protected abstract void saveStorage(Resume resume, Object searchKey);
+
+    protected abstract Object getResume(Object searchKey);
+
+    protected abstract void deleteResume(Object searchKey);
+
+    protected abstract List<Resume> getListResume();
 
     protected abstract Object findIndex(String uuid);
 
