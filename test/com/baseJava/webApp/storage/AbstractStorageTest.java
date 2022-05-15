@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
-    final Storage storage;
+    protected Storage storage;
 
     private static final String UUID_1 = "uuid1";
     private static final String FULL_NAME_1 = "NAME_1";
@@ -44,8 +44,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        storage.update(RESUME_1);
-        assertSame(RESUME_1, storage.get(UUID_1));
+        Resume newResume = new Resume(UUID_1, FULL_NAME_1);
+        storage.update(newResume);
+        assertSame(newResume, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
