@@ -4,13 +4,13 @@ import com.baseJava.webApp.model.Resume;
 
 import java.util.*;
 
-public class MapUuidStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage<String> {
 
     private final Map<String, Resume> storage = new HashMap<>();
 
     @Override
-    protected void updateStorage(Resume resume, Object uuid) {
-        storage.put((String) uuid, resume);
+    protected void updateStorage(Resume resume, String uuid) {
+        storage.put(uuid, resume);
     }
 
     @Override
@@ -19,18 +19,18 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveStorage(Resume resume, Object uuid) {
-        storage.put((String) uuid, resume);
+    protected void saveStorage(Resume resume, String uuid) {
+        storage.put(uuid, resume);
     }
 
     @Override
-    protected Object getResume(Object uuid) {
-        return storage.get((String) uuid);
+    protected Resume getResume(String uuid) {
+        return storage.get(uuid);
     }
 
     @Override
-    protected void deleteResume(Object uuid) {
-        storage.remove((String) uuid);
+    protected void deleteResume(String uuid) {
+        storage.remove(uuid);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object uuid) {
-        return storage.containsKey((String) uuid);
+    protected boolean isExist(String uuid) {
+        return storage.containsKey(uuid);
     }
 }

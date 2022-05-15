@@ -6,14 +6,14 @@ import com.baseJava.webApp.model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int STORAGE_LIMIT = 10000;
 
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size;
 
-    public void updateStorage(Resume resume, Object index) {
-        storage[(Integer) index] = resume;
+    public void updateStorage(Resume resume, Integer index) {
+        storage[index] = resume;
     }
 
     public void clear() {
@@ -21,9 +21,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public void saveStorage(Resume resume, Object index) {
+    public void saveStorage(Resume resume, Integer index) {
         hasFreeCells();
-        addElement(resume, (Integer) index);
+        addElement(resume, index);
         size++;
     }
 
@@ -33,12 +33,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    public Resume getResume(Object index) {
-        return storage[(Integer) index];
+    public Resume getResume(Integer index) {
+        return storage[index];
     }
 
-    public void deleteResume(Object index) {
-        System.arraycopy(storage, (Integer) index + 1, storage, (Integer) index, size - 1 - (Integer) index);
+    public void deleteResume(Integer index) {
+        System.arraycopy(storage, index + 1, storage, index, size - 1 - (Integer) index);
         size--;
     }
 
@@ -51,8 +51,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object index) {
-        return (Integer) index >= 0;
+    protected boolean isExist(Integer index) {
+        return index >= 0;
     }
 
     protected abstract void addElement(Resume resume, int index);
