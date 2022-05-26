@@ -3,14 +3,10 @@ package com.baseJava.webApp.model;
 import java.util.Objects;
 
 public class TextSection extends Section {
-
-    private  String content;
+    private final String content;
 
     public TextSection(String content) {
         this.content = content;
-    }
-
-    public TextSection() {
     }
 
     public String getContent() {

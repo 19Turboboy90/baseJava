@@ -20,7 +20,6 @@ public class ResumeTestData {
     private static final String OBJECTIVE = "Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям";
     private static final String PERSONAL = "Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.";
 
-
     private static final List<String> ACHIEVEMENT = new ArrayList<>(List.of("Организация команды и успешная реализация Java проектов для сторонних заказчиков: приложения автопарк на стеке " +
             "Spring Cloud/микросервисы, система мониторинга показателей спортсменов на Spring Boot, участие в проекте МЭШ " +
             "на Play-2, многомодульный Spring Boot + Vaadin проект для комплексных DIY смет" +
@@ -98,9 +97,7 @@ public class ResumeTestData {
             new ArrayList<>(List.of(new Period("Разработчик ПО", LocalDate.of(1997, 9, 1), LocalDate.of(2005, 1, 1),
                     "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."))));
 
-
     private static final List<Organization> EXPERIENCE = new ArrayList<>(List.of(organization_1, organization_2, organization_3, organization_4, organization_5, organization_6, organization_7, organization_8));
-
 
 //EDUCATION
 
@@ -138,15 +135,14 @@ public class ResumeTestData {
 
 
     public static void main(String[] args) {
-
         Resume resume = new Resume(FULLNAME);
         resume.savePhone(PHONE_NUMBER);
-        resume.savePhone(SKYPE);
-        resume.savePhone(EMAIL);
-        resume.savePhone(LINKEDIN);
-        resume.savePhone(GITHUB);
-        resume.savePhone(STACKOVERFLOW);
-        resume.savePhone(HOMEPAGE);
+        resume.saveSkype(SKYPE);
+        resume.saveEmail(EMAIL);
+        resume.saveLinkedIn(LINKEDIN);
+        resume.saveGitHub(GITHUB);
+        resume.saveStackoverflow(STACKOVERFLOW);
+        resume.saveHomePage(HOMEPAGE);
         resume.saveInfoPersonal(PERSONAL);
         resume.saveInfoObjective(OBJECTIVE);
         resume.saveInfoAchievement(ACHIEVEMENT);
@@ -154,20 +150,6 @@ public class ResumeTestData {
         resume.saveInfoExperience(EXPERIENCE);
         resume.saveInfoEducation(EDUCATION);
 
-
         System.out.println(resume);
-
-
-        //class Builder
-//        Resume resume = new Resume.Builder(new Resume("562", FULLNAME))
-//                .withContacts(new HashMap<>()).savePhone(ContactType.PHONE, PHONE_NUMBER)
-//                .saveSkype(ContactType.SKYPE, SKYPE)
-//                .saveEmail(ContactType.EMAIL, EMAIL)
-//                .saveLinkedIn(ContactType.LINKEDIN, LINKEDIN)
-//                .saveStackoverflow(ContactType.STACKOVERFLOW, STACKOVERFLOW)
-//                .saveHomePage(ContactType.HOMEPAGE, HOMEPAGE).build();
-//
-//
-//        System.out.println(resume);
     }
 }

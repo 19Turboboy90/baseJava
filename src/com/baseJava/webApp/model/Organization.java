@@ -1,27 +1,18 @@
 package com.baseJava.webApp.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Organization {
-
-    private String title;
-
-    private String webSite;
-
-    private List<Period> periods;
-
-    public Organization() {
-    }
+    private final String title;
+    private final String webSite;
+    private final List<Period> periods;
 
     public Organization(String title, String webSite, List<Period> periods) {
+        Objects.requireNonNull(title);
         this.title = title;
         this.webSite = webSite;
         this.periods = periods;
-    }
-
-    public Organization(String title, String webSite) {
-        this.title = title;
-        this.webSite = webSite;
     }
 
     public String getTitle() {
