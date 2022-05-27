@@ -3,12 +3,11 @@ package com.baseJava.webApp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class OrganizationSection extends Section{
+public class OrganizationSection extends Section {
     private final List<Organization> organization;
 
     public OrganizationSection(List<Organization> organizations) {
-        Objects.requireNonNull(organizations);
-        this.organization = organizations;
+        this.organization = Objects.requireNonNull(organizations, "organizations must not be null");
     }
 
     public List<Organization> getOrganization() {

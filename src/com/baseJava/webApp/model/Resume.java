@@ -16,9 +16,8 @@ public class Resume {
     }
 
     public Resume(String uuid, String fullName) {
-        Objects.requireNonNull(uuid);
-        this.uuid = uuid;
-        this.fullName = fullName;
+        this.uuid = Objects.requireNonNull(uuid, "uuid must not be null");
+        this.fullName = Objects.requireNonNull(fullName, "fullName must not be null");
     }
 
     public String getFullName() {
@@ -37,7 +36,7 @@ public class Resume {
         return sections;
     }
 
-// Methods class ContactType
+    // Methods class ContactType
     public void savePhone(String phone) {
         contacts.put(ContactType.PHONE, phone);
     }
@@ -66,7 +65,7 @@ public class Resume {
         contacts.put(ContactType.HOMEPAGE, homePage);
     }
 
-// Methods class SectionType
+    // Methods class SectionType
     public void saveInfoPersonal(String textPersonal) {
         sections.put(SectionType.PERSONAL, new TextSection(textPersonal));
     }

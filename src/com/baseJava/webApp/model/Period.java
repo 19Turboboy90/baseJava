@@ -5,20 +5,20 @@ import java.util.Objects;
 
 public class Period {
     private final String title;
-    private final LocalDate start;
-    private final LocalDate end;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
     private String description;
 
-    public Period(String title, LocalDate start, LocalDate end, String description) {
-        this.title = title;
-        this.start = start;
-        this.end = end;
+    public Period(String title, LocalDate startDate, LocalDate endDate, String description) {
+        this.title = Objects.requireNonNull(title, "title must not be null");
+        this.startDate = Objects.requireNonNull(startDate, "startDate must not be null");
+        this.endDate = Objects.requireNonNull(endDate, "endDate must not be null");
         this.description = description;
     }
 
-    public Period(LocalDate start, LocalDate end, String title) {
-        this.start = start;
-        this.end = end;
+    public Period(LocalDate startDate, LocalDate endDate, String title) {
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.title = title;
     }
 
@@ -26,12 +26,12 @@ public class Period {
         return title;
     }
 
-    public LocalDate getStart() {
-        return start;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public LocalDate getEnd() {
-        return end;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
     public String getDescription() {
@@ -43,20 +43,20 @@ public class Period {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Period period = (Period) o;
-        return Objects.equals(title, period.title) && Objects.equals(start, period.start) && Objects.equals(end, period.end) && Objects.equals(description, period.description);
+        return Objects.equals(title, period.title) && Objects.equals(startDate, period.startDate) && Objects.equals(endDate, period.endDate) && Objects.equals(description, period.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, start, end, description);
+        return Objects.hash(title, startDate, endDate, description);
     }
 
     @Override
     public String toString() {
         return "Organization{" +
                 "title='" + title + '\'' +
-                ", start=" + start +
-                ", end=" + end +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 ", description='" + description + '\'' +
                 '}';
     }
