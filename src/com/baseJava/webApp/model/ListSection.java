@@ -19,7 +19,7 @@ public class ListSection extends Section {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ListSection that = (ListSection) o;
-        return Objects.equals(content, that.content);
+        return content.equals(that.content);
     }
 
     @Override
