@@ -120,18 +120,15 @@ public class ResumeTestData {
     private static final Organization education_5 = new Organization("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики " +
             "и оптики", "https://itmo.ru/ru/",
             new ArrayList<>(List.of(new Period(LocalDate.of(1993, 9, 1), LocalDate.of(1996, 7, 1),
-                    "Аспирантура (программист С, С++)"))));
-
-    private static final Organization education_6 = new Organization("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики " +
-            "и оптики", "https://itmo.ru/ru/",
-            new ArrayList<>(List.of(new Period(LocalDate.of(1987, 9, 1), LocalDate.of(1993, 7, 1),
+                    "Аспирантура (программист С, С++)"), new Period(LocalDate.of(1987, 9, 1), LocalDate.of(1993, 7, 1),
                     "Инженер (программист Fortran, C)"))));
 
-    private static final Organization education_7 = new Organization("Заочная физико-техническая школа при МФТИ", "https://school.mipt.ru/",
+
+    private static final Organization education_6 = new Organization("Заочная физико-техническая школа при МФТИ", "https://school.mipt.ru/",
             new ArrayList<>(List.of(new Period(LocalDate.of(1984, 9, 1), LocalDate.of(1987, 6, 1),
                     "Закончил с отличием"))));
 
-    private static final List<Organization> EDUCATION = new ArrayList<>(List.of(education_1, education_2, education_3, education_4, education_5, education_6, education_7));
+    private static final List<Organization> EDUCATION = new ArrayList<>(List.of(education_1, education_2, education_3, education_4, education_5, education_6));
 
 
     public static void main(String[] args) {

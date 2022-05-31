@@ -53,11 +53,9 @@ public class Period {
 
     @Override
     public String toString() {
-        return "Organization{" +
-                "title='" + title + '\'' +
+        return   title + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", description='" + description + '\'' +
-                '}';
+                ", description='" + description;
     }
 }

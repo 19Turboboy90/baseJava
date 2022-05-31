@@ -41,10 +41,9 @@ public class Organization {
 
     @Override
     public String toString() {
-        return "Organization{" +
-                "title='" + title + '\'' +
-                ", webSite='" + webSite + '\'' +
-                ", periods=" + periods +
-                '}';
+        return "Organization" +
+                title  +
+                webSite + "\n" +
+                periods + "\n";
     }
 }
