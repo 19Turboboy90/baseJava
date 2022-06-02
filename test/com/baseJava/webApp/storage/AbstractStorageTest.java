@@ -1,5 +1,6 @@
 package com.baseJava.webApp.storage;
 
+import com.baseJava.webApp.ResumeTestData;
 import com.baseJava.webApp.exception.ExistStorageException;
 import com.baseJava.webApp.exception.NotExistStorageException;
 import com.baseJava.webApp.model.Resume;
@@ -9,26 +10,31 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public abstract class AbstractStorageTest {
     protected Storage storage;
 
     private static final String UUID_1 = "uuid1";
-    private static final String FULL_NAME_1 = "NAME_1";
-    private static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME_1);
+    private static final String FULL_NAME_1 = "IVAN IVANOV";
+    //    private static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME_1);
+    private static final Resume RESUME_1 = ResumeTestData.createResume(UUID_1, FULL_NAME_1);
 
     private static final String UUID_2 = "uuid2";
     private static final String FULL_NAME_2 = "NAME_2";
-    private static final Resume RESUME_2 = new Resume(UUID_2, FULL_NAME_2);
+    //    private static final Resume RESUME_2 = new Resume(UUID_2, FULL_NAME_2);
+    private static final Resume RESUME_2 = ResumeTestData.createResume(UUID_2, FULL_NAME_2);
 
     private static final String UUID_3 = "uuid3";
     private static final String FULL_NAME_3 = "NAME_3";
-    private static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
+    //    private static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME_3);
+    private static final Resume RESUME_3 = ResumeTestData.createResume(UUID_3, FULL_NAME_3);
 
     private static final String UUID_4 = "uuid4";
     private static final String FULL_NAME_4 = "NAME_4";
-    private static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME_4);
+    //    private static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME_4);
+    private static final Resume RESUME_4 = ResumeTestData.createResume(UUID_4, FULL_NAME_4);
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;

@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResumeTestData {
+    public static void main(String[] args) {
+        System.out.println(createResume("13", FULLNAME));
+    }
+
     private static final String FULLNAME = "Григорий Кислин";
     private static final String PHONE_NUMBER = "8-999-999-99-99";
     private static final String SKYPE = "skype:skype:grigory.kislin";
@@ -130,9 +134,8 @@ public class ResumeTestData {
 
     private static final List<Organization> EDUCATION = new ArrayList<>(List.of(education_1, education_2, education_3, education_4, education_5, education_6));
 
-
-    public static void main(String[] args) {
-        Resume resume = new Resume(FULLNAME);
+    public static Resume createResume(String uuid, String fullName) {
+        Resume resume = new Resume(uuid, fullName);
         resume.savePhone(PHONE_NUMBER);
         resume.saveSkype(SKYPE);
         resume.saveEmail(EMAIL);
@@ -146,7 +149,6 @@ public class ResumeTestData {
         resume.saveInfoQualification(QUALIFICATIONS);
         resume.saveInfoExperience(EXPERIENCE);
         resume.saveInfoEducation(EDUCATION);
-
-        System.out.println(resume);
+        return resume;
     }
 }

@@ -105,11 +105,10 @@ public class Resume {
 
     @Override
     public String toString() {
-        return "Resume{" +
-                "uuid='" + uuid + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", contacts=" + contacts +
-                ", sections=" + sections +
-                '}';
+        return "Resume " +
+                "uuid= " + uuid + '\t' +
+                "fullName= " + fullName + '\n' +
+                "contacts= " + contacts + '\n' +
+                "sections= " + sections;
     }
 }

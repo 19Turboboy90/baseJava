@@ -41,9 +41,9 @@ public class Organization {
 
     @Override
     public String toString() {
-        return "Organization" +
-                title  +
-                webSite + "\n" +
-                periods + "\n";
+        return
+                title + "\n" +
+                        webSite + "\n" +
+                        periods + "\n";
     }
 }

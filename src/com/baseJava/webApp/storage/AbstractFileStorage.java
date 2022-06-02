@@ -5,6 +5,8 @@ import com.baseJava.webApp.model.Resume;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +15,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     protected abstract void doWrite(Resume resume, File file) throws IOException;
 
-    protected abstract void doRead(File file);
+    protected abstract Resume doRead(File file) throws IOException;
 
     protected AbstractFileStorage(File directory) {
         if (!directory.isDirectory()) {
@@ -46,18 +48,31 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected Resume getResume(File file) {
-        doRead(file);
-        return null;
+        try {
+            return doRead(file);
+        } catch (IOException e) {
+            throw new StorageException("IO error", file.getName(), e);
+        }
     }
 
     @Override
     protected void deleteResume(File file) {
-
+        if (file.delete()) {
+            System.out.println("File deleted");
+        }
     }
 
     @Override
     protected List<Resume> getListResume() {
-        return null;
+        File[] files = directory.listFiles();
+        ArrayList<Resume> listResume = new ArrayList<>();
+        if (files == null) {
+            throw new StorageException("Directory error");
+        }
+        for (File file : files) {
+            listResume.add(getResume(file));
+        }
+        return listResume;
     }
 
     @Override
@@ -72,7 +87,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        directory.delete();
+        Arrays.stream(Objects.requireNonNull(directory.listFiles())).forEach(File::delete);
     }
 
     @Override
