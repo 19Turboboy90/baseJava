@@ -57,8 +57,8 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected void deleteResume(File file) {
-        if (file.delete()) {
-            System.out.println("File deleted");
+        if (!file.delete()) {
+            throw new StorageException("File delete error", file.getName());
         }
     }
 
@@ -67,7 +67,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         File[] files = directory.listFiles();
         ArrayList<Resume> listResume = new ArrayList<>();
         if (files == null) {
-            throw new StorageException("Directory error");
+            throw new StorageException("I/O error");
         }
         for (File file : files) {
             listResume.add(getResume(file));
@@ -87,7 +87,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        Arrays.stream(Objects.requireNonNull(directory.listFiles())).forEach(File::delete);
+        Arrays.stream(Objects.requireNonNull(directory.listFiles())).forEach(this::deleteResume);
     }
 
     @Override
