@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Objects;
 
-
 public class Period {
     private final String title;
     private final LocalDate startDate;
