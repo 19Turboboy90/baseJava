@@ -1,13 +1,17 @@
 package com.baseJava.webApp.model;
 
+import com.baseJava.webApp.util.DateUtil;
+
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Objects;
+
 
 public class Period {
     private final String title;
     private final LocalDate startDate;
     private final LocalDate endDate;
-    private String description;
+    private final String description;
 
     public Period(String title, LocalDate startDate, LocalDate endDate, String description) {
         this.title = Objects.requireNonNull(title, "title must not be null");
@@ -16,10 +20,12 @@ public class Period {
         this.description = description;
     }
 
-    public Period(LocalDate startDate, LocalDate endDate, String title) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.title = title;
+    public Period(String title, int startYear, Month startMonth, String description) {
+        this(title, DateUtil.of(startYear, startMonth), DateUtil.NOW, description);
+    }
+
+    public Period(String title, int startYear, Month startMonth, int endYear, Month endMonth, String description) {
+        this(title, DateUtil.of(startYear, startMonth), DateUtil.of(endYear, endMonth), description);
     }
 
     public String getTitle() {

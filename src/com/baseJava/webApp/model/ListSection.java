@@ -1,13 +1,19 @@
 package com.baseJava.webApp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class ListSection extends Section {
     private final List<String> content;
 
+    public ListSection(String... items) {
+        this(Arrays.asList(items));
+    }
+
     public ListSection(List<String> content) {
-        this.content = Objects.requireNonNull(content, "content must not be null");
+        Objects.requireNonNull(content, "items must not be null");
+        this.content = content;
     }
 
     public List<String> getContent() {

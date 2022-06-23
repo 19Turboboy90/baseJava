@@ -5,6 +5,7 @@ import com.baseJava.webApp.model.Period;
 import com.baseJava.webApp.model.Resume;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,31 +107,26 @@ public class ResumeTestData {
 //EDUCATION
 
     private static final Organization education_1 = new Organization("Coursera", "https://www.coursera.org/",
-            new ArrayList<>(List.of(new Period(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1),
-                    "'Functional Programming Principles in Scala' by Martin Odersky"))));
+            new ArrayList<>(List.of(new Period("'Functional Programming Principles in Scala' by Martin Odersky", 2013, Month.MARCH, 2013, Month.MAY, null))));
+
 
     private static final Organization education_2 = new Organization("Luxoft", "https://ibs-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html",
-            new ArrayList<>(List.of(new Period(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4, 1),
-                    "'Functional Programming Principles in Scala' by Martin Odersky"))));
+            new ArrayList<>(List.of(new Period("Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'", 2011, Month.MARCH, 2011, Month.APRIL, null))));
 
     private static final Organization education_3 = new Organization("Siemens AG", "https://new.siemens.com/ru/ru.html",
-            new ArrayList<>(List.of(new Period(LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4, 1),
-                    "3 месяца обучения мобильным IN сетям (Берлин)"))));
+            new ArrayList<>(List.of(new Period("3 месяца обучения мобильным IN сетям (Берлин)", 2005, Month.JANUARY, 2005, Month.APRIL, null))));
+
 
     private static final Organization education_4 = new Organization("Alcatel", "http://www.alcatel.ru/",
-            new ArrayList<>(List.of(new Period(LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3, 1),
-                    "6 месяцев обучения цифровым телефонным сетям (Москва)"))));
+            new ArrayList<>(List.of(new Period("6 месяцев обучения цифровым телефонным сетям (Москва)", 1997, Month.SEPTEMBER, 1998, Month.MARCH, null))));
 
     private static final Organization education_5 = new Organization("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики " +
             "и оптики", "https://itmo.ru/ru/",
-            new ArrayList<>(List.of(new Period(LocalDate.of(1993, 9, 1), LocalDate.of(1996, 7, 1),
-                    "Аспирантура (программист С, С++)"), new Period(LocalDate.of(1987, 9, 1), LocalDate.of(1993, 7, 1),
-                    "Инженер (программист Fortran, C)"))));
-
+            new ArrayList<>(List.of(new Period("Аспирантура (программист С, С++)", 1993, Month.SEPTEMBER, 1996, Month.JULY, null),
+                    new Period("Инженер (программист Fortran, C)", 1987, Month.SEPTEMBER, 1993, Month.JULY, null))));
 
     private static final Organization education_6 = new Organization("Заочная физико-техническая школа при МФТИ", "https://school.mipt.ru/",
-            new ArrayList<>(List.of(new Period(LocalDate.of(1984, 9, 1), LocalDate.of(1987, 6, 1),
-                    "Закончил с отличием"))));
+            new ArrayList<>(List.of(new Period("Закончил с отличием", 1984, Month.SEPTEMBER, 1987, Month.JUNE, null))));
 
     private static final List<Organization> EDUCATION = new ArrayList<>(List.of(education_1, education_2, education_3, education_4, education_5, education_6));
 
