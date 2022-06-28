@@ -42,7 +42,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         try {
             Files.createFile(path);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new StorageException("File creation error", path.getFileName().toString(), e);
         }
         updateStorage(resume, path);
     }
@@ -87,7 +87,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     public int size() {
-        return(int) returnListPath().count();
+        return (int) returnListPath().count();
     }
 
     private Stream<Path> returnListPath() {

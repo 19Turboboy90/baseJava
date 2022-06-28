@@ -31,18 +31,16 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             doWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
-            throw new StorageException("IO error", file.getName(), e);
+            throw new StorageException("File update error", file.getName(), e);
         }
     }
 
     @Override
     protected void saveStorage(Resume resume, File file) {
         try {
-            if (!file.createNewFile()) {
-                System.out.println("create file");
-            }
+            file.createNewFile();
         } catch (IOException e) {
-            throw new StorageException("IO error", file.getName(), e);
+            throw new StorageException("File creation error", file.getName(), e);
         }
         updateStorage(resume, file);
     }
@@ -52,7 +50,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             return doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
-            throw new StorageException("IO error", file.getName(), e);
+            throw new StorageException("File reading  error", file.getName(), e);
         }
     }
 
@@ -65,12 +63,8 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> getListResume() {
-        File[] files = directory.listFiles();
         ArrayList<Resume> listResume = new ArrayList<>();
-        if (files == null) {
-            throw new StorageException("I/O error");
-        }
-        for (File file : files) {
+        for (File file : checkError()) {
             listResume.add(getResume(file));
         }
         return listResume;
@@ -88,11 +82,19 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        Arrays.stream(Objects.requireNonNull(directory.listFiles())).forEach(this::deleteResume);
+        Arrays.stream(checkError()).forEach(this::deleteResume);
     }
 
     @Override
     public int size() {
-        return Objects.requireNonNull(directory.list()).length;
+        return checkError().length;
+    }
+
+    private File[] checkError() {
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("Directory reading error");
+        }
+        return files;
     }
 }
