@@ -2,6 +2,7 @@ package com.baseJava.webApp.storage;
 
 import com.baseJava.webApp.exception.StorageException;
 import com.baseJava.webApp.model.Resume;
+import com.baseJava.webApp.storage.functionStorage.FunctionObjectStreamStorage;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,17 +10,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class AbstractFileStorage extends AbstractStorage<File> {
+public class FileStorage extends AbstractStorage<File> {
     private final File directory;
 
-    protected abstract void doWrite(Resume resume, OutputStream file) throws IOException;
+    private final FunctionObjectStreamStorage writableReadable;
 
-    protected abstract Resume doRead(InputStream file) throws IOException;
-
-    protected AbstractFileStorage(File directory) {
+    protected FileStorage(File directory, FunctionObjectStreamStorage writableReadable) {
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
         }
+        this.writableReadable = writableReadable;
         if (!directory.canRead() || !directory.canWrite()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not readable/writable");
         }
@@ -29,7 +29,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void updateStorage(Resume resume, File file) {
         try {
-            doWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
+            writableReadable.doWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File update error", file.getName(), e);
         }
@@ -48,7 +48,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected Resume getResume(File file) {
         try {
-            return doRead(new BufferedInputStream(new FileInputStream(file)));
+            return writableReadable.doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File reading  error", file.getName(), e);
         }
