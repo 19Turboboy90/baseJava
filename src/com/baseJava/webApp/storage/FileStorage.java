@@ -2,7 +2,7 @@ package com.baseJava.webApp.storage;
 
 import com.baseJava.webApp.exception.StorageException;
 import com.baseJava.webApp.model.Resume;
-import com.baseJava.webApp.storage.functionStorage.FunctionObjectStreamStorage;
+import com.baseJava.webApp.storage.functionStorage.ObjectStreamStorageInterface;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,9 +13,9 @@ import java.util.Objects;
 public class FileStorage extends AbstractStorage<File> {
     private final File directory;
 
-    private final FunctionObjectStreamStorage writableReadable;
+    private final ObjectStreamStorageInterface writableReadable;
 
-    protected FileStorage(File directory, FunctionObjectStreamStorage writableReadable) {
+    protected FileStorage(File directory, ObjectStreamStorageInterface writableReadable) {
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
         }

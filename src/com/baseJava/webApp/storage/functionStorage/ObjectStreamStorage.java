@@ -5,7 +5,7 @@ import com.baseJava.webApp.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamStorage implements FunctionObjectStreamStorage {
+public class ObjectStreamStorage implements ObjectStreamStorageInterface {
     @Override
     public void doWrite(Resume resume, OutputStream file) throws IOException {
         try (ObjectOutputStream oos = new ObjectOutputStream(file)) {

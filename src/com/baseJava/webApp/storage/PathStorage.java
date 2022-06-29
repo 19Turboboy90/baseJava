@@ -2,7 +2,7 @@ package com.baseJava.webApp.storage;
 
 import com.baseJava.webApp.exception.StorageException;
 import com.baseJava.webApp.model.Resume;
-import com.baseJava.webApp.storage.functionStorage.FunctionObjectStreamStorage;
+import com.baseJava.webApp.storage.functionStorage.ObjectStreamStorageInterface;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,9 +16,9 @@ import java.util.stream.Stream;
 public class PathStorage extends AbstractStorage<Path> {
     private final Path directory;
 
-    private final FunctionObjectStreamStorage writableReadable;
+    private final ObjectStreamStorageInterface writableReadable;
 
-    protected PathStorage(String dir, FunctionObjectStreamStorage writableReadable) {
+    protected PathStorage(String dir, ObjectStreamStorageInterface writableReadable) {
         this.directory = Objects.requireNonNull(Paths.get(dir), "directory must not be null");
         this.writableReadable = writableReadable;
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
