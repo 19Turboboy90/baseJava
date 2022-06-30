@@ -1,4 +1,4 @@
-package com.baseJava.webApp.storage.functionStorage;
+package com.baseJava.webApp.storage.serializer;
 
 import com.baseJava.webApp.model.Resume;
 

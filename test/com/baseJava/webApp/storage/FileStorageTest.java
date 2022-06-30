@@ -1,6 +1,6 @@
 package com.baseJava.webApp.storage;
 
-import com.baseJava.webApp.storage.functionStorage.ObjectStreamStorage;
+import com.baseJava.webApp.storage.serializer.ObjectStreamStorage;
 
 public class FileStorageTest extends AbstractStorageTest {
 

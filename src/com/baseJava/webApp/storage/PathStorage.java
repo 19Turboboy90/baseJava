@@ -2,7 +2,7 @@ package com.baseJava.webApp.storage;
 
 import com.baseJava.webApp.exception.StorageException;
 import com.baseJava.webApp.model.Resume;
-import com.baseJava.webApp.storage.functionStorage.ObjectStreamStorageInterface;
+import com.baseJava.webApp.storage.serializer.ObjectStreamStorageInterface;
 
 import java.io.IOException;
 import java.nio.file.Files;
