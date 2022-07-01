@@ -4,6 +4,7 @@ import com.baseJava.webApp.exception.StorageException;
 import com.baseJava.webApp.model.Resume;
 import com.baseJava.webApp.storage.serializer.ObjectStreamStorageInterface;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,9 +49,9 @@ public class PathStorage extends AbstractStorage<Path> {
     @Override
     protected Resume getResume(Path path) {
         try {
-            return writableReadable.doRead(Files.newInputStream(path));
+            return writableReadable.doRead(new BufferedInputStream(Files.newInputStream(path)));
         } catch (IOException e) {
-            throw new StorageException("Path error", null, e);
+            throw new StorageException("Path read error", e);
         }
     }
 
