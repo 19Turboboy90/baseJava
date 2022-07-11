@@ -32,12 +32,12 @@ public class Period implements Serializable {
         this.description = description;
     }
 
-    public Period(String title, int startYear, Month startMonth, String description) {
-        this(title, DateUtil.of(startYear, startMonth), DateUtil.NOW, description);
-    }
-
     public Period(String title, int startYear, Month startMonth, int endYear, Month endMonth, String description) {
         this(title, DateUtil.of(startYear, startMonth), DateUtil.of(endYear, endMonth), description);
+    }
+
+    public Period(String title, int startYear, Month startMonth, String description) {
+        this(title, DateUtil.of(startYear, startMonth), DateUtil.NOW, description);
     }
 
     public String getTitle() {

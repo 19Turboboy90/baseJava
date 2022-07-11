@@ -51,7 +51,7 @@ public class PathStorage extends AbstractStorage<Path> {
         try {
             return writableReadable.doRead(new BufferedInputStream(Files.newInputStream(path)));
         } catch (IOException e) {
-            throw new StorageException("Path read error", e);
+            throw new StorageException("Path read error", path.getFileName().toString(), e);
         }
     }
 

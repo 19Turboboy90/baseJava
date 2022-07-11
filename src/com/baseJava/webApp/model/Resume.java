@@ -45,57 +45,13 @@ public class Resume implements Serializable {
     }
 
     // Methods class ContactType
-    public void savePhone(String phone) {
-        contacts.put(ContactType.PHONE, phone);
-    }
-
-    public void saveSkype(String skype) {
-        contacts.put(ContactType.SKYPE, skype);
-    }
-
-    public void saveEmail(String email) {
-        contacts.put(ContactType.EMAIL, email);
-    }
-
-    public void saveGitHub(String gitHub) {
-        contacts.put(ContactType.GITHUB, gitHub);
-    }
-
-    public void saveLinkedIn(String linkedIn) {
-        contacts.put(ContactType.LINKEDIN, linkedIn);
-    }
-
-    public void saveStackoverflow(String stackoverflow) {
-        contacts.put(ContactType.STACKOVERFLOW, stackoverflow);
-    }
-
-    public void saveHomePage(String homePage) {
-        contacts.put(ContactType.HOMEPAGE, homePage);
+    public void saveContacts(ContactType type, String value) {
+        contacts.put(type, value);
     }
 
     // Methods class SectionType
-    public void saveInfoPersonal(String textPersonal) {
-        sections.put(SectionType.PERSONAL, new TextSection(textPersonal));
-    }
-
-    public void saveInfoObjective(String textObjective) {
-        sections.put(SectionType.OBJECTIVE, new TextSection(textObjective));
-    }
-
-    public void saveInfoAchievement(List<String> textAchievement) {
-        sections.put(SectionType.ACHIEVEMENT, new ListSection(textAchievement));
-    }
-
-    public void saveInfoQualification(List<String> textQualification) {
-        sections.put(SectionType.QUALIFICATIONS, new ListSection(textQualification));
-    }
-
-    public void saveInfoExperience(List<Organization> textExperience) {
-        sections.put(SectionType.EXPERIENCE, new OrganizationSection(textExperience));
-    }
-
-    public void saveInfoEducation(List<Organization> textEducation) {
-        sections.put(SectionType.EDUCATION, new OrganizationSection(textEducation));
+    public void saveSections(SectionType type, Section text) {
+        sections.put(type, text);
     }
 
     @Override
