@@ -45,12 +45,20 @@ public class DataStreamSerializer implements ObjectStreamStorageInterface {
                         writeSectionsResume(dos, organizationsList, organization -> {
                             List<Period> periods = organization.getPeriods();
                             dos.writeUTF(organization.getTitle());
-                            dos.writeUTF(organization.getWebSite());
+                            if (organization.getWebSite() != null) {
+                                dos.writeUTF(organization.getWebSite());
+                            } else {
+                                dos.writeUTF("null");
+                            }
                             writeSectionsResume(dos, periods, element -> {
                                 dos.writeUTF(element.getTitle());
                                 dos.writeUTF(String.valueOf(element.getStartDate()));
                                 dos.writeUTF(String.valueOf(element.getEndDate()));
-                                dos.writeUTF(element.getDescription());
+                                if (element.getDescription() != null) {
+                                    dos.writeUTF(element.getDescription());
+                                } else {
+                                    dos.writeUTF("null");
+                                }
                             });
                         });
                         break;
@@ -81,28 +89,12 @@ public class DataStreamSerializer implements ObjectStreamStorageInterface {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        List<String> contentList = new ArrayList<>();
-                        readSectionsResume(dis, () -> contentList.add(dis.readUTF()));
-                        section = new ListSection(contentList);
+                        section = new ListSection(readListResume(dis, dis::readUTF));
                         break;
                     case EXPERIENCE:
                     case EDUCATION:
-                        List<Organization> organizationsList = new ArrayList<>();
-                        readSectionsResume(dis, () -> {
-                            String title = dis.readUTF();
-                            String webSite = dis.readUTF();
-                            List<Period> periods = new ArrayList<>();
-
-                            readSectionsResume(dis, () -> {
-                                String titlePeriods = dis.readUTF();
-                                LocalDate startDate = LocalDate.parse(dis.readUTF());
-                                LocalDate endDate = LocalDate.parse(dis.readUTF());
-                                String description = dis.readUTF();
-                                periods.add(new Period(titlePeriods, startDate, endDate, description));
-                            });
-                            organizationsList.add(new Organization(title, webSite, periods));
-                        });
-                        section = new OrganizationSection(organizationsList);
+                        section = new OrganizationSection(readListResume(dis, () -> new Organization(dis.readUTF(), dis.readUTF(), readListResume(dis,
+                                () -> new Period(dis.readUTF(), LocalDate.parse(dis.readUTF()), LocalDate.parse(dis.readUTF()), dis.readUTF())))));
                         break;
                     default:
                         throw new IllegalStateException("Wrong section type: " + type.name());
@@ -113,7 +105,7 @@ public class DataStreamSerializer implements ObjectStreamStorageInterface {
         }
     }
 
-// Write Resume
+    // Write Resume
     private <T> void writeSectionsResume(DataOutputStream dos, Collection<T> collection, Writable<T> partition) throws IOException {
         dos.writeInt(collection.size());
         for (T element : collection) {
@@ -125,7 +117,7 @@ public class DataStreamSerializer implements ObjectStreamStorageInterface {
         void write(T partition) throws IOException;
     }
 
-//Read Resume
+    //Read Resume
     private void readSectionsResume(DataInputStream dis, Readable partition) throws IOException {
         int size = dis.readInt();
         for (int i = 0; i < size; i++) {
@@ -135,5 +127,18 @@ public class DataStreamSerializer implements ObjectStreamStorageInterface {
 
     private interface Readable {
         void read() throws IOException;
+    }
+
+    interface ListReader<T> {
+        T readList() throws IOException;
+    }
+
+    private <T> List<T> readListResume(DataInputStream dis, ListReader<T> list) throws IOException {
+        List<T> readerList = new ArrayList<>();
+        int size = dis.readInt();
+        for (int i = 0; i < size; i++) {
+            readerList.add(list.readList());
+        }
+        return readerList;
     }
 }
