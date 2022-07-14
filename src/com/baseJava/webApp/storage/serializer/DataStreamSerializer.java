@@ -105,7 +105,7 @@ public class DataStreamSerializer implements ObjectStreamStorageInterface {
         }
     }
 
-    // Write Resume
+// Write Resume
     private <T> void writeSectionsResume(DataOutputStream dos, Collection<T> collection, Writable<T> partition) throws IOException {
         dos.writeInt(collection.size());
         for (T element : collection) {
@@ -117,7 +117,7 @@ public class DataStreamSerializer implements ObjectStreamStorageInterface {
         void write(T partition) throws IOException;
     }
 
-    //Read Resume
+//Read Resume
     private void readSectionsResume(DataInputStream dis, Readable partition) throws IOException {
         int size = dis.readInt();
         for (int i = 0; i < size; i++) {
