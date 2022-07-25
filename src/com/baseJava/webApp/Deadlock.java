@@ -11,12 +11,12 @@ public class Deadlock {
 
     private static void deadlock(String lock1, String lock2) {
         new Thread(() -> {
-            System.out.println(Thread.currentThread().getName() + " attempt to lock the monitor 'lock1'");
+            System.out.println(Thread.currentThread().getName() + " attempt to lock the monitor " + lock1);
             synchronized (lock1) {
                 System.out.println(Thread.currentThread().getName() + " has blocked");
-                System.out.println(Thread.currentThread().getName() + " attempt to lock the monitor lock2");
+                System.out.println(Thread.currentThread().getName() + " attempt to lock the monitor " + lock2);
                 synchronized (lock2) {
-                    System.out.println(Thread.currentThread().getName() + " The lock1 and lock2 object monitor is locked");
+                    System.out.println(Thread.currentThread().getName() + " The " + lock1 + " and " + lock2 + " object monitor is locked");
                 }
             }
         }).start();
