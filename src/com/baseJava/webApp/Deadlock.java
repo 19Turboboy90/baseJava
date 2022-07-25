@@ -1,41 +1,24 @@
 package com.baseJava.webApp;
 
 public class Deadlock {
-    public static Object lock1 = new Object();
-    public static Object lock2 = new Object();
+    public static String lock1 = "Lock_1";
+    public static String lock2 = "Lock_2";
 
     public static void main(String[] args) {
-        Thread1 thread1 = new Thread1();
-        Thread2 thread2 = new Thread2();
-        thread1.start();
-        thread2.start();
+        deadlock(lock1, lock2);
+        deadlock(lock2, lock1);
     }
-}
 
-class Thread1 extends Thread {
-    @Override
-    public void run() {
-        System.out.println(Thread1.currentThread().getName() + " attempt to lock the monitor 'lock1'");
-        synchronized (Deadlock.lock1) {
-            System.out.println(Thread1.currentThread().getName() + " has blocked");
-            System.out.println(Thread1.currentThread().getName() + " attempt to lock the monitor lock2");
-            synchronized (Deadlock.lock2) {
-                System.out.println(Thread1.currentThread().getName() + " The lock1 and lock2 object monitor is locked");
+    private static void deadlock(String lock1, String lock2) {
+        new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + " attempt to lock the monitor 'lock1'");
+            synchronized (lock1) {
+                System.out.println(Thread.currentThread().getName() + " has blocked");
+                System.out.println(Thread.currentThread().getName() + " attempt to lock the monitor lock2");
+                synchronized (lock2) {
+                    System.out.println(Thread.currentThread().getName() + " The lock1 and lock2 object monitor is locked");
+                }
             }
-        }
-    }
-}
-
-class Thread2 extends Thread {
-    @Override
-    public void run() {
-        System.out.println(Thread2.currentThread().getName() + " attempt to lock the monitor 'lock2'");
-        synchronized (Deadlock.lock2) {
-            System.out.println(Thread2.currentThread().getName() + " has blocked");
-            System.out.println(Thread2.currentThread().getName() + " attempt to lock the monitor lock1");
-            synchronized (Deadlock.lock1) {
-                System.out.println(Thread2.currentThread().getName() + " The lock1 and lock2 object monitor is locked");
-            }
-        }
+        }).start();
     }
 }
