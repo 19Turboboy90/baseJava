@@ -12,11 +12,11 @@ public class StreamHW12 {
 //2-реализовать метод List<Integer> oddOrEven(List<Integer> integers) если сумма всех чисел нечетная - удалить все нечетные,
 // если четная - удалить все четные. Сложность алгоритма должна быть O(N). Optional - решение в один стрим.
 
-    private static int[] values_1 = {1, 2, 3, 3, 2, 3};
-    private static int[] values_2 = {9, 8};
+    private static int[] values_1 = {1, 4, 2, 1, 5, 4, 7};
+    private static int[] values_2 = {9, 8, 6, 7};
 
-    private static List<Integer> listNumber_1 = Arrays.asList(1, 2, 3, 3, 2, 3);
-    private static List<Integer> listNumber_2 = Arrays.asList(1, 2, 3, 3, 2, 2);
+    private static List<Integer> listNumber_1 = Arrays.asList(1, 4, 2, 1, 5, 4, 7);
+    private static List<Integer> listNumber_2 = Arrays.asList(1, 4, 2, 1, 5, 4, 6);
 
     public static void main(String[] args) {
         System.out.println("Min values " + minValue(values_1));
@@ -36,12 +36,7 @@ public class StreamHW12 {
         int sumNumbers = integers.stream()
                 .mapToInt(n -> n)
                 .sum();
-        if (sumNumbers % 2 == 0) {
-            List<Integer> sumOfEvenNumbers = integers.stream().filter(number -> number % 2 == 1).collect(Collectors.toList());
-            return sumOfEvenNumbers;
-        } else {
-            List<Integer> sumOfOddNumbers = integers.stream().filter(number -> number % 2 == 0).collect(Collectors.toList());
-            return sumOfOddNumbers;
-        }
+        List<Integer> sumOfOddNumbers = integers.stream().filter(number -> sumNumbers % 2 == 0 && number % 2 == 1 || sumNumbers % 2 == 1 && number % 2 == 0).collect(Collectors.toList());
+        return sumOfOddNumbers;
     }
 }
