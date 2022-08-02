@@ -5,18 +5,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class StreamHW12 {
-//1-реализовать метод через стрим int minValue(int[] values).
-//Метод принимает массив цифр от 1 до 9, надо выбрать уникальные и вернуть минимально возможное число, составленное из этих
-// уникальных цифр. Не использовать преобразование в строку и обратно. Например {1,2,3,3,2,3} вернет 123, а {9,8} вернет 89
+//    Р РµР°Р»РёР·РѕРІР°С‚СЊ РјРµС‚РѕРґ С‡РµСЂРµР· СЃС‚СЂРёРј int minValue(int[] values).
+//    РњРµС‚РѕРґ РїСЂРёРЅРёРјР°РµС‚ РјР°СЃСЃРёРІ С†РёС„СЂ РѕС‚ 1 РґРѕ 9, РЅР°РґРѕ РІС‹Р±СЂР°С‚СЊ СѓРЅРёРєР°Р»СЊРЅС‹Рµ Рё РІРµСЂРЅСѓС‚СЊ РјРёРЅРёРјР°Р»СЊРЅРѕ РІРѕР·РјРѕР¶РЅРѕРµ С‡РёСЃР»Рѕ, СЃРѕСЃС‚Р°РІР»РµРЅРЅРѕРµ РёР· СЌС‚РёС… СѓРЅРёРєР°Р»СЊРЅС‹С… С†РёС„СЂ.
+//    РќРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РІ СЃС‚СЂРѕРєСѓ Рё РѕР±СЂР°С‚РЅРѕ. РќР°РїСЂРёРјРµСЂ {1,2,3,3,2,3} РІРµСЂРЅРµС‚ 123, Р° {9,8} РІРµСЂРЅРµС‚ 89
 
-//2-реализовать метод List<Integer> oddOrEven(List<Integer> integers) если сумма всех чисел нечетная - удалить все нечетные,
-// если четная - удалить все четные. Сложность алгоритма должна быть O(N). Optional - решение в один стрим.
+//    Р РµР°Р»РёР·РѕРІР°С‚СЊ РјРµС‚РѕРґ List<Integer> oddOrEven(List<Integer> integers) РµСЃР»Рё СЃСѓРјРјР° РІСЃРµС… С‡РёСЃРµР» РЅРµС‡РµС‚РЅР°СЏ - СѓРґР°Р»РёС‚СЊ РІСЃРµ РЅРµС‡РµС‚РЅС‹Рµ, РµСЃР»Рё С‡РµС‚РЅР°СЏ - СѓРґР°Р»РёС‚СЊ РІСЃРµ С‡РµС‚РЅС‹Рµ.
+//    РЎР»РѕР¶РЅРѕСЃС‚СЊ Р°Р»РіРѕСЂРёС‚РјР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ O(N). Optional - СЂРµС€РµРЅРёРµ РІ РѕРґРёРЅ СЃС‚СЂРёРј.
 
-    private static int[] values_1 = {1, 4, 2, 1, 5, 4, 7};
-    private static int[] values_2 = {9, 8, 6, 7};
+    private static final int[] values_1 = {1, 4, 2, 1, 5, 4, 7};
+    private static final int[] values_2 = {9, 8, 6, 7};
 
-    private static List<Integer> listNumber_1 = Arrays.asList(1, 4, 2, 1, 5, 4, 7);
-    private static List<Integer> listNumber_2 = Arrays.asList(1, 4, 2, 1, 5, 4, 6);
+    private static final List<Integer> listNumber_1 = Arrays.asList(1, 4, 2, 1, 5, 4, 7);
+    private static final List<Integer> listNumber_2 = Arrays.asList(1, 4, 2, 1, 5, 4, 6);
 
     public static void main(String[] args) {
         System.out.println("Min values " + minValue(values_1));
@@ -36,7 +36,6 @@ public class StreamHW12 {
         int sumNumbers = integers.stream()
                 .mapToInt(n -> n)
                 .sum();
-        List<Integer> sumOfOddNumbers = integers.stream().filter(number -> sumNumbers % 2 == 0 && number % 2 == 1 || sumNumbers % 2 == 1 && number % 2 == 0).collect(Collectors.toList());
-        return sumOfOddNumbers;
+        return integers.stream().filter(number -> sumNumbers % 2 == 0 ? number % 2 == 1 : number % 2 == 0).collect(Collectors.toList());
     }
 }
