@@ -137,7 +137,7 @@ public class ResumeTestData {
 //        resume.saveContacts(ContactType.GITHUB, GITHUB);
 //        resume.saveContacts(ContactType.STACKOVERFLOW, STACKOVERFLOW);
 //        resume.saveContacts(ContactType.HOMEPAGE, HOMEPAGE);
-
+//
 //        resume.saveSections(SectionType.PERSONAL, new TextSection(PERSONAL));
 //        resume.saveSections(SectionType.OBJECTIVE, new TextSection(OBJECTIVE));
 //
