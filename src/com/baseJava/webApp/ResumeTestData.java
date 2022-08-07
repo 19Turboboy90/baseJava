@@ -130,22 +130,22 @@ public class ResumeTestData {
 
     public static Resume createResume(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
-        resume.saveContacts(ContactType.PHONE, PHONE_NUMBER);
-        resume.saveContacts(ContactType.SKYPE, SKYPE);
-        resume.saveContacts(ContactType.EMAIL, EMAIL);
-        resume.saveContacts(ContactType.LINKEDIN, LINKEDIN);
-        resume.saveContacts(ContactType.GITHUB, GITHUB);
-        resume.saveContacts(ContactType.STACKOVERFLOW, STACKOVERFLOW);
-        resume.saveContacts(ContactType.HOMEPAGE, HOMEPAGE);
+//        resume.saveContacts(ContactType.PHONE, PHONE_NUMBER);
+//        resume.saveContacts(ContactType.SKYPE, SKYPE);
+//        resume.saveContacts(ContactType.EMAIL, EMAIL);
+//        resume.saveContacts(ContactType.LINKEDIN, LINKEDIN);
+//        resume.saveContacts(ContactType.GITHUB, GITHUB);
+//        resume.saveContacts(ContactType.STACKOVERFLOW, STACKOVERFLOW);
+//        resume.saveContacts(ContactType.HOMEPAGE, HOMEPAGE);
 
-        resume.saveSections(SectionType.PERSONAL, new TextSection(PERSONAL));
-        resume.saveSections(SectionType.OBJECTIVE, new TextSection(OBJECTIVE));
-
-        resume.saveSections(SectionType.ACHIEVEMENT, new ListSection(ACHIEVEMENT));
-        resume.saveSections(SectionType.QUALIFICATIONS, new ListSection(QUALIFICATIONS));
-
-        resume.saveSections(SectionType.EXPERIENCE, new OrganizationSection(EXPERIENCE));
-        resume.saveSections(SectionType.EDUCATION, new OrganizationSection(EDUCATION));
+//        resume.saveSections(SectionType.PERSONAL, new TextSection(PERSONAL));
+//        resume.saveSections(SectionType.OBJECTIVE, new TextSection(OBJECTIVE));
+//
+//        resume.saveSections(SectionType.ACHIEVEMENT, new ListSection(ACHIEVEMENT));
+//        resume.saveSections(SectionType.QUALIFICATIONS, new ListSection(QUALIFICATIONS));
+//
+//        resume.saveSections(SectionType.EXPERIENCE, new OrganizationSection(EXPERIENCE));
+//        resume.saveSections(SectionType.EDUCATION, new OrganizationSection(EDUCATION));
 
         return resume;
     }

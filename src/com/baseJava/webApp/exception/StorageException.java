@@ -1,7 +1,7 @@
 package com.baseJava.webApp.exception;
 
 public class StorageException extends RuntimeException {
-    private String uuid;
+    private final String uuid;
 
     public StorageException(String message) {
         this(message, null, null);
