@@ -1,4 +1,4 @@
-package com.baseJava.webApp.storage.sqlStorage;
+package com.baseJava.webApp.sql;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
