@@ -33,11 +33,7 @@ public class SqlStorage implements Storage {
                     throw new NotExistStorageException(resume.getUuid());
                 }
             }
-            sqlHelper.execute("DELETE FROM contact WHERE resume_uuid =?", ps -> {
-                ps.setString(1, resume.getUuid());
-                ps.execute();
-                return null;
-            });
+            deleteContact(resume);
             insertContact(conn, resume);
             return null;
         });
@@ -116,7 +112,6 @@ public class SqlStorage implements Storage {
                     map.put(uuid, resume);
                 }
                 addContact(rs, resume);
-
             }
             return new ArrayList<>(map.values());
         });
@@ -151,5 +146,13 @@ public class SqlStorage implements Storage {
         if (value != null) {
             resume.saveContacts(ContactType.valueOf(rs.getString("type")), value);
         }
+    }
+
+    private void deleteContact(Resume resume) {
+        sqlHelper.execute("DELETE FROM contact WHERE resume_uuid =?", ps -> {
+            ps.setString(1, resume.getUuid());
+            ps.execute();
+            return null;
+        });
     }
 }
