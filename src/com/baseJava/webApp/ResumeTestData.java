@@ -137,15 +137,14 @@ public class ResumeTestData {
         resume.saveContacts(ContactType.GITHUB, GITHUB);
         resume.saveContacts(ContactType.STACKOVERFLOW, STACKOVERFLOW);
         resume.saveContacts(ContactType.HOMEPAGE, HOMEPAGE);
-//
-//        resume.saveSections(SectionType.PERSONAL, new TextSection(PERSONAL));
-//        resume.saveSections(SectionType.OBJECTIVE, new TextSection(OBJECTIVE));
-//
-//        resume.saveSections(SectionType.ACHIEVEMENT, new ListSection(ACHIEVEMENT));
-//        resume.saveSections(SectionType.QUALIFICATIONS, new ListSection(QUALIFICATIONS));
-//
-//        resume.saveSections(SectionType.EXPERIENCE, new OrganizationSection(EXPERIENCE));
-//        resume.saveSections(SectionType.EDUCATION, new OrganizationSection(EDUCATION));
+        resume.saveSections(SectionType.PERSONAL, new TextSection(PERSONAL));
+        resume.saveSections(SectionType.OBJECTIVE, new TextSection(OBJECTIVE));
+
+        resume.saveSections(SectionType.ACHIEVEMENT, new ListSection(ACHIEVEMENT));
+        resume.saveSections(SectionType.QUALIFICATIONS, new ListSection(QUALIFICATIONS));
+
+        resume.saveSections(SectionType.EXPERIENCE, new OrganizationSection(EXPERIENCE));
+        resume.saveSections(SectionType.EDUCATION, new OrganizationSection(EDUCATION));
 
         return resume;
     }

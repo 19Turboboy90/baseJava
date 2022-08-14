@@ -9,7 +9,7 @@ public class JsonStreamSerializer implements ObjectStreamStorageInterface {
     @Override
     public void doWrite(Resume resume, OutputStream file) throws IOException {
         try (Writer writer = new OutputStreamWriter(file, StandardCharsets.UTF_8)) {
-            JsonParser.writer(resume, writer);
+            JsonParser.write(resume, writer);
         }
     }
 

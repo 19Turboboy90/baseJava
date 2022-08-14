@@ -2,7 +2,7 @@ package com.baseJava.webApp.model;
 
 import java.util.Objects;
 
-public class TextSection extends Section {
+public class TextSection extends AbstractSection {
     private static final long serialVersionUID = 1L;
 
     private String content;

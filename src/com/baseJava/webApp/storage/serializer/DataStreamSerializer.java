@@ -14,7 +14,7 @@ public class DataStreamSerializer implements ObjectStreamStorageInterface {
     public void doWrite(Resume resume, OutputStream file) throws IOException {
         try (DataOutputStream dos = new DataOutputStream(file)) {
             Map<ContactType, String> contacts = resume.getContacts();
-            Map<SectionType, Section> sections = resume.getSections();
+            Map<SectionType, AbstractSection> sections = resume.getSections();
 
             dos.writeUTF(resume.getUuid());
             dos.writeUTF(resume.getFullName());
@@ -26,7 +26,7 @@ public class DataStreamSerializer implements ObjectStreamStorageInterface {
 
             writeSectionsResume(dos, sections.entrySet(), partition -> {
                 SectionType type = partition.getKey();
-                Section section = partition.getValue();
+                AbstractSection section = partition.getValue();
                 dos.writeUTF(type.name());
                 switch (type) {
                     case PERSONAL:
@@ -81,7 +81,7 @@ public class DataStreamSerializer implements ObjectStreamStorageInterface {
 
             readSectionsResume(dis, () -> {
                 SectionType type = SectionType.valueOf(dis.readUTF());
-                Section section;
+                AbstractSection section;
                 switch (type) {
                     case PERSONAL:
                     case OBJECTIVE:
