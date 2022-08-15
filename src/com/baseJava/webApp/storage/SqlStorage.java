@@ -80,28 +80,21 @@ public class SqlStorage implements Storage {
             try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM contact WHERE resume_uuid = ?")) {
                 ps.setString(1, uuid);
                 ResultSet rs = ps.executeQuery();
-                if (!rs.next()) {
-                    throw new NotExistStorageException(uuid);
-                }
-                do {
+                while(rs.next()) {
                     addContact(rs, resume);
-                } while (rs.next());
+                }
             }
 
             try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM section WHERE resume_uuid = ?")) {
                 ps.setString(1, uuid);
                 ResultSet rs = ps.executeQuery();
-                if (!rs.next()) {
-                    throw new NotExistStorageException(uuid);
-                }
-                do {
+                while (rs.next()){
                     addSection(rs, resume);
-                } while (rs.next());
+                }
             }
             return resume;
         });
     }
-
 
     @Override
     public void delete(String uuid) {
