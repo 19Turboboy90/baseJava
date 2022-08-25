@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
-    private static final File PROPERTIES_DIR = new File("config\\resumes.properties");
+    private static final File PROPS = new File("E:\\programming\\JAVA\\java_course\\basejava\\config\\resumes.properties");
     private static final Config INSTANCE = new Config();
 
     private final File storageDir;
@@ -21,13 +21,13 @@ public class Config {
     }
 
     private Config() {
-        try (InputStream inputStream = new FileInputStream(PROPERTIES_DIR)) {
+        try (InputStream is = new FileInputStream(PROPS)) {
             Properties props = new Properties();
-            props.load(inputStream);
+            props.load(is);
             storageDir = new File(props.getProperty("storage.dir"));
             storage = new SqlStorage(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"));
         } catch (IOException e) {
-            throw new IllegalStateException("Invalid config file " + PROPERTIES_DIR.getAbsolutePath());
+            throw new IllegalStateException("Invalid config file " + PROPS.getAbsolutePath());
         }
     }
 

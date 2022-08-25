@@ -1,36 +1,26 @@
-create table if not exists resume
+CREATE TABLE resume
 (
-    uuid char(36) not null
-        constraint resume_pk
-            primary key,
-    full_name text not null
+    uuid      CHAR(36) NOT NULL
+        CONSTRAINT resume_pk
+            PRIMARY KEY,
+    full_name TEXT     NOT NULL
 );
 
-create table if not exists contact
+CREATE TABLE contact
 (
-    id serial not null
-        constraint contact_pk
-            primary key,
-    type text not null,
-    value text,
-    resume_uuid char(36) not null
-        constraint contact_resume_uuid_fk
-            references resume
-            on update restrict on delete cascade
+    id          SERIAL,
+    type        TEXT     NOT NULL,
+    value       TEXT     NOT NULL,
+    resume_uuid CHAR(36) NOT NULL REFERENCES resume (uuid) ON DELETE CASCADE
 );
 
-create table if not exists section
+CREATE TABLE section
 (
-    id serial not null
-        constraint section_pk
-            primary key,
-    type text not null,
+    id          SERIAL,
+    type     TEXT     NOT NULL,
     content text not null,
-    resume_uuid char(36) not null
-        constraint section_resume_uuid_fk
-            references resume
-            on update restrict on delete cascade
+    resume_uuid CHAR(36) NOT NULL REFERENCES resume (uuid) ON DELETE CASCADE
 );
 
-create unique index contact_uuid_type_index
-    on contact (resume_uuid, type);
+CREATE UNIQUE INDEX contact_uuid_type_index ON contact (resume_uuid, type);
+CREATE UNIQUE INDEX section_uuid_type_index ON section (resume_uuid, type);

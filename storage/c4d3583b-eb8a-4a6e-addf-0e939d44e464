@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resume>
-    <uuid>e287f893-ec4e-49e6-b8db-ba171779df88</uuid>
-    <fullName>NAME_3</fullName>
+    <uuid>c4d3583b-eb8a-4a6e-addf-0e939d44e464</uuid>
+    <fullName>IVAN IVANOV</fullName>
     <contacts>
         <entry>
             <key>PHONE</key>
@@ -78,7 +78,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
                     <periods>
                         <title>Автор проекта.</title>
                         <startDate>2013-11-01</startDate>
-                        <endDate>2022-08-20</endDate>
+                        <endDate>2022-08-25</endDate>
                         <description>Создание, организация и проведение Java онлайн проектов и стажировок.</description>
                     </periods>
                 </organization>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resume>
-    <uuid>c630e163-99c8-4797-904b-e4766fc46d1b</uuid>
-    <fullName>NAME_2</fullName>
+    <uuid>90c4d393-fc37-41bc-bce1-430a879f8c4e</uuid>
+    <fullName>NAME_3</fullName>
     <contacts>
         <entry>
             <key>PHONE</key>
@@ -78,7 +78,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
                     <periods>
                         <title>Автор проекта.</title>
                         <startDate>2013-11-01</startDate>
-                        <endDate>2022-08-20</endDate>
+                        <endDate>2022-08-25</endDate>
                         <description>Создание, организация и проведение Java онлайн проектов и стажировок.</description>
                     </periods>
                 </organization>
