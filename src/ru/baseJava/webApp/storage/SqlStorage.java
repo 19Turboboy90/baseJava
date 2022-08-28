@@ -9,10 +9,7 @@ import ru.baseJava.webApp.sql.SqlHelper;
 import ru.baseJava.webApp.storage.serializer.JsonParser;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class SqlStorage implements Storage {
