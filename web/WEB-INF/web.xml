@@ -5,12 +5,12 @@
          version="3.1">
 
 <!--    <servlet>-->
-    <!--        <servlet-name>resumeServlet</servlet-name>-->
-    <!--        <servlet-class>ru.baseJava.webApp.web.resumeServlet</servlet-class>-->
-    <!--    </servlet>-->
-    <!--    <servlet-mapping>-->
-    <!--        <servlet-name>resumeServlet</servlet-name>-->
-    <!--        <url-pattern>/resume</url-pattern>-->
-    <!--    </servlet-mapping>-->
+<!--            <servlet-name>resumeServlet</servlet-name>-->
+<!--            <servlet-class>ru.baseJava.webApp.web.resumeServlet</servlet-class>-->
+<!--        </servlet>-->
+<!--        <servlet-mapping>-->
+<!--            <servlet-name>resumeServlet</servlet-name>-->
+<!--            <url-pattern>/resume</url-pattern>-->
+<!--        </servlet-mapping>-->
 
 </web-app>

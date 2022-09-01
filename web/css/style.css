@@ -33,7 +33,7 @@ dt {
 
 dd {
     display: inline-block;
-    margin-left: 8px;
+    margin-left: 20px;
     vertical-align: top;
 }
 
@@ -45,27 +45,27 @@ li {
     margin: 15px 0;
 }
 
-/*a[href^="skype:"] {*/
-/*    padding-left: 20px !important;*/
-/*    background: url(../img/skype.png) no-repeat center left;*/
-/*}*/
+a[href^="skype:"] {
+    padding-left: 20px !important;
+    background: url(../img/skype.png) no-repeat center left;
+}
 
-/*a[href^="mailto:"] {*/
-/*    padding-left: 20px !important;*/
-/*    background: url(../img/email.png) no-repeat center left;*/
-/*}*/
+a[href^="mailto:"] {
+    padding-left: 20px !important;
+    background: url(../img/email.png) no-repeat center left;
+}
 
-/*a[href^="https://stackoverflow.com"] {*/
-/*    padding-left: 20px !important;*/
-/*    background: url(../img/so.png) no-repeat center left;*/
-/*}*/
+a[href^="https://stackoverflow.com"] {
+    padding-left: 20px !important;
+    background: url(../img/so.png) no-repeat center left;
+}
 
-/*a[href^="https://www.linkedin.com"] {*/
-/*    padding-left: 20px !important;*/
-/*    background: url(../img/lin.png) no-repeat center left;*/
-/*}*/
+a[href^="https://www.linkedin.com"] {
+    padding-left: 20px !important;
+    background: url(../img/lin.png) no-repeat center left;
+}
 
-/*a[href*="github."] {*/
-/*    padding-left: 20px !important;*/
-/*    background: url(../img/gh.png) no-repeat center left;*/
-/*}*/
+a[href*="github."] {
+    padding-left: 20px !important;
+    background: url(../img/gh.png) no-repeat center left;
+}
