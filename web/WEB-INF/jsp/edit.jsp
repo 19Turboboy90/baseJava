@@ -12,199 +12,88 @@
 </head>
 <body>
 <jsp:include page="fragments/header.jsp"/>
+
 <section>
     <form method="post" action="resume" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="uuid" value="${resume.uuid}">
+        <h1>Имя:</h1>
         <dl>
-            <dt>ФИО:</dt>
-            <dd><input type="text" name="fullName" size=50 value="${resume.fullName}"></dd>
+            <input type="text" name="fullName" size=55 value="${resume.fullName}">
         </dl>
-        <%--Contacts--%>
-        <dl>
-            <h3>Контакты:</h3>
-            <c:forEach var="type" items="<%=ContactType.values()%>">
-                <dl>
-                    <dt>${type.title}</dt>
-                    <dd><input type="text" name="${type.name()}" size=30 value="${resume.getContact(type)}"></dd>
-                </dl>
-            </c:forEach>
-        </dl>
-        <%--Section--%>
+        <h2>Контакты:</h2>
+        <c:forEach var="type" items="<%=ContactType.values()%>">
+            <dl>
+                <dt>${type.title}</dt>
+                <dd><input type="text" name="${type.name()}" size=30 value="${resume.getContact(type)}"></dd>
+            </dl>
+        </c:forEach>
         <hr>
-        <table>
-            <tr>
-                <c:set var="objective" value="<%=resume.getSection(SectionType.OBJECTIVE) %>"/>
-                <td class="title-cell"><label for="objective"><strong>Позиция</strong></label></td>
-                <td class="title-cell"><input type="text" size="80" name="objective" id="objective"
-                                              value="${objective.content!= null ? objective.content : ""}">
-                </td>
-            </tr>
-            <tr>
-                <c:set var="personal" value="<%= (TextSection) resume.getSection(SectionType.PERSONAL) %>"/>
-                <td class="title-cell"><label for="personal"><strong>Личные качества</strong></label></td>
-                <td class="title-cell"><input type="text" size="80" name="personal" id="personal"
-                                              value="${personal.content!= null ? personal.content : ""}">
-
-                </td>
-            </tr>
-            <tr>
-                <td class="title-cell"><strong>Достижения</strong></td>
-                <td class="title-cell"><input type="button" value="Добавить"
-                                              onclick="addAchieveListItem(document.getElementById('achieve-list'), 'achievement')">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <ol id="achieve-list">
-                        <c:set var="achievementSection"
-                               value="<%= ((ListSection) resume.getSection(SectionType.ACHIEVEMENT)) %>"/>
-
-                        <c:if test="${achievementSection != null}">
-                            <c:forEach var="achieve" items="${achievementSection.content}">
-                                <li><input type="text" size=80 name='achievement' value='${achieve}'>
-                                    <input type="button" value="удалить" onclick="removeElement(this.parentElement)">
-                                </li>
+        <c:forEach var="type" items="<%=SectionType.values()%>">
+            <c:set var="section" value="${resume.getSection(type)}"/>
+            <jsp:useBean id="section" type="ru.baseJava.webApp.model.AbstractSection"/>
+            <h2><a>${type.title}</a></h2>
+            <c:choose>
+                <c:when test="${type=='OBJECTIVE'}">
+                    <input type='text' name='${type}' size=75 value='<%=section%>'>
+                </c:when>
+                <c:when test="${type=='PERSONAL'}">
+                    <textarea name='${type}' cols=75 rows=5><%=section%></textarea>
+                </c:when>
+                <c:when test="${type=='QUALIFICATIONS' || type=='ACHIEVEMENT'}">
+                    <textarea name='${type}' cols=75
+                              rows=5><%=String.join("\n", ((ListSection) section).getContent())%></textarea>
+                </c:when>
+                <c:when test="${type=='EXPERIENCE' || type=='EDUCATION'}">
+                    <c:forEach var="org" items="<%=((OrganizationSection) section).getOrganization()%>"
+                               varStatus="counter">
+                        <dl>
+                            <dt>Название учреждения:</dt>
+                            <dd><input type="text" name='${type}' size=100 value="${org.webSite}"></dd>
+                        </dl>
+                        <dl>
+                            <dt>Сайт учреждения:</dt>
+                            <dd><input type="text" name='${type}url' size=100 value="${org.webSite}"></dd>
+                            </dd>
+                        </dl>
+                        <br>
+                        <div style="margin-left: 30px">
+                            <c:forEach var="pos" items="${org.periods}">
+                                <jsp:useBean id="pos" type="ru.baseJava.webApp.model.Period"/>
+                                <dl>
+                                    <dt>Начальная дата:</dt>
+                                    <dd>
+                                        <input type="text" name="${type}${counter.index}startDate" size=10
+                                               value="<%=DateUtil.format(pos.getStartDate())%>" placeholder="MM/yyyy">
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>Конечная дата:</dt>
+                                    <dd>
+                                        <input type="text" name="${type}${counter.index}endDate" size=10
+                                               value="<%=DateUtil.format(pos.getEndDate())%>" placeholder="MM/yyyy">
+                                </dl>
+                                <dl>
+                                    <dt>Должность:</dt>
+                                    <dd><input type="text" name='${type}${counter.index}title' size=75
+                                               value="${pos.title}">
+                                </dl>
+                                <dl>
+                                    <dt>Описание:</dt>
+                                    <dd><textarea name="${type}${counter.index}description" rows=5
+                                                  cols=75>${pos.description}</textarea></dd>
+                                </dl>
                             </c:forEach>
-                        </c:if>
-                    </ol>
-                </td>
-            </tr>
-            <tr>
-                <td class="title-cell"><strong>Квалификация</strong></td>
-                <td class="title-cell"><input type="button" value="Добавить"
-                                              onclick="addAchieveListItem(document.getElementById('qualification-list'), 'qualifications')">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <ol id="qualification-list">
-                        <c:set var="qualificationSection"
-                               value="<%= ((ListSection) resume.getSection(SectionType.QUALIFICATIONS))%>"/>
-
-                        <c:if test="${qualificationSection != null}">
-                            <c:forEach var="qualification" items="${qualificationSection.content}">
-                                <li><input type="text" size=80 name="qualifications" value="${qualification}">
-                                    <input type="button" value="удалить" onclick="removeElement(this.parentElement)">
-                                </li>
-                            </c:forEach>
-                        </c:if>
-                    </ol>
-                </td>
-            </tr>
-        </table>
-        <hr>
-        <div class="title-cell">
-            <strong class="title-cell">Опыт работы</strong>
-            <input type="button" value="Добавить место работы"
-                   onclick="addOrganizationItem()">
-        </div>
-        <ul id="job-list">
-            <c:set var="experienceSection"
-                   value="<%= ((OrganizationSection) resume.getSection(SectionType.EXPERIENCE)) %>"/>
-
-            <c:if test="${experienceSection != null}">
-                <c:forEach var="jobItem" items="${experienceSection.organization}">
-                    <li>
-                        <table>
-                            <tr>
-                                <td class="title-cell"><label for="jobName">Наименование организации</label></td>
-                                <td class="title-cell"><input type="text" name="jobName" size="50" id="jobName"
-                                                              value="${jobItem.title}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label for="jobWebsite">Официальный сайт</label></td>
-                                <td><input type="text" name="jobWebsite" size="50" id="jobWebsite"
-                                           value="${jobItem.webSite}"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="jobPosition">Позиция</label></td>
-                                <td><input type="text" name="jobPosition" size="50" id="jobPosition"
-                                           value="${jobItem.periods.get(0).title}"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="jobDescription">Основные обязанности</label></td>
-                                <td><textarea cols="52" rows="5" name="jobDescription"
-                                              id="jobDescription">${jobItem.periods.get(0).description}</textarea>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label for="jobStart">Начало</label></td>
-                                <td><input type="date" name="jobStart" id="jobStart"
-                                           value="${DateUtil.format(jobItem.periods.get(0).startDate)}"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="jobEnd">Конец</label></td>
-                                <td><input type="date" name="jobEnd" id="jobEnd"
-                                           value="${DateUtil.format(jobItem.periods.get(0).endDate)}"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="button" value="удалить"
-                                           onclick="removeElement(this.parentElement.parentElement.parentElement.parentElement)">
-                                </td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </li>
-                </c:forEach>
-            </c:if>
-        </ul>
-        <hr>
-        <div class="title-cell">
-            <strong class="title-cell">Образование</strong>
-            <input type="button" value="Добавить учреждение"
-                   onclick="addEducationItem()">
-        </div>
-        <ul id="edu-list">
-            <c:set var="educationSection"
-                   value="<%= ((OrganizationSection) resume.getSection(SectionType.EDUCATION)) %>"/>
-
-            <c:if test="${experienceSection != null}">
-                <c:forEach var="eduItem" items="${educationSection.organization}">
-                    <li>
-
-                        <table>
-                            <tr>
-                                <td class="title-cell"><label for="eduName">Наименование учреждения</label></td>
-                                <td class="title-cell"><input type="text" name="eduName" size="50" id="eduName"
-                                                              value="${eduItem.title}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label for="eduWebsite">Официальный сайт</label></td>
-                                <td><input type="text" name="eduWebsite" size="50" id="eduWebsite"
-                                           value="${eduItem.webSite}"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="eduPosition">Описание</label></td>
-                                <td><input type="text" name="eduPosition" size="50" id="eduPosition"
-                                           value="${eduItem.periods.get(0).title}"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="eduStart">Начало</label></td>
-                                <td><input type="date" name="eduStart" id="eduStart"
-                                           value="${DateUtil.format(eduItem.periods.get(0).startDate)}"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="eduEnd">Конец</label></td>
-                                <td><input type="date" name="eduEnd" id="eduEnd"
-                                           value="${DateUtil.format(eduItem.periods.get(0).endDate)}"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="button" value="удалить"
-                                           onclick="removeElement(this.parentElement.parentElement.parentElement.parentElement)">
-                                </td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </li>
-                </c:forEach>
-            </c:if>
-        </ul>
+                        </div>
+                    </c:forEach>
+                </c:when>
+            </c:choose>
+        </c:forEach>
         <button type="submit">Сохранить</button>
         <button onclick="window.history.back()">Отменить</button>
     </form>
 </section>
+
+
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

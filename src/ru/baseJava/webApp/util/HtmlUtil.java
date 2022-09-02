@@ -1,6 +1,5 @@
 package ru.baseJava.webApp.util;
 
-
 import ru.baseJava.webApp.model.Period;
 
 public class HtmlUtil {
