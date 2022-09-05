@@ -11,6 +11,17 @@ import java.util.*;
 public class Resume implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    public static final Resume EMPTY = new Resume();
+
+    static {
+        EMPTY.saveSections(SectionType.OBJECTIVE, TextSection.EMPTY);
+        EMPTY.saveSections(SectionType.PERSONAL, TextSection.EMPTY);
+        EMPTY.saveSections(SectionType.ACHIEVEMENT, ListSection.EMPTY);
+        EMPTY.saveSections(SectionType.QUALIFICATIONS, ListSection.EMPTY);
+        EMPTY.saveSections(SectionType.EXPERIENCE, new OrganizationSection(Organization.EMPTY));
+        EMPTY.saveSections(SectionType.EDUCATION, new OrganizationSection(Organization.EMPTY));
+    }
+
     private String uuid;
     private String fullName;
     private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);

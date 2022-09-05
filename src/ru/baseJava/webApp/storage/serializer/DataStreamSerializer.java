@@ -44,7 +44,7 @@ public class DataStreamSerializer implements ObjectStreamStorageInterface {
                         List<Organization> organizationsList = ((OrganizationSection) section).getOrganization();
                         writeSectionsResume(dos, organizationsList, organization -> {
                             List<Period> periods = organization.getPeriods();
-                            dos.writeUTF(organization.getTitle());
+                            dos.writeUTF(organization.getName());
                             if (organization.getWebSite() != null) {
                                 dos.writeUTF(organization.getWebSite());
                             } else {

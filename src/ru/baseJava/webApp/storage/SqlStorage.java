@@ -13,9 +13,7 @@ import java.util.*;
 import java.util.logging.Logger;
 
 public class SqlStorage implements Storage {
-
     private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
-
     public SqlHelper sqlHelper;
 
     public SqlStorage(String dbUrl, String dbUser, String dbPassword) {
@@ -81,7 +79,6 @@ public class SqlStorage implements Storage {
                 String value = rs.getString("full_name");
                 resume = new Resume(uuid, value);
             }
-
             try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM contact WHERE resume_uuid = ?")) {
                 ps.setString(1, uuid);
                 ResultSet rs = ps.executeQuery();
@@ -89,7 +86,6 @@ public class SqlStorage implements Storage {
                     addContact(rs, resume);
                 }
             }
-
             try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM section WHERE resume_uuid = ?")) {
                 ps.setString(1, uuid);
                 ResultSet rs = ps.executeQuery();
@@ -144,7 +140,6 @@ public class SqlStorage implements Storage {
             return new ArrayList<>(map.values());
         });
     }
-
 
     @Override
     public int size() {

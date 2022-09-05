@@ -14,6 +14,7 @@ import java.util.Objects;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Period implements Serializable {
     private static final long serialVersionUID = 1L;
+    public static final Period EMPTY = new Period();
 
     private String title;
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
@@ -29,7 +30,7 @@ public class Period implements Serializable {
         this.title = Objects.requireNonNull(title, "title must not be null");
         this.startDate = Objects.requireNonNull(startDate, "startDate must not be null");
         this.endDate = Objects.requireNonNull(endDate, "endDate must not be null");
-        this.description = description;
+        this.description = description == null ? "" : description;
     }
 
     public Period(String title, int startYear, Month startMonth, int endYear, Month endMonth, String description) {
