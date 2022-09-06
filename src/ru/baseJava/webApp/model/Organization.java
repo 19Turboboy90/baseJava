@@ -25,12 +25,10 @@ public class Organization implements Serializable {
         this.periods = Arrays.asList(positions);
     }
 
-    public Organization(String name, String website, List<Period> periods) {
-        Objects.requireNonNull(name, "name must not be null");
-        Objects.requireNonNull(periods, "periods must not be null");
-        this.name = name;
-        this.webSite = website;
-        this.periods = periods;
+    public Organization(String title, String webSite, List<Period> periods) {
+        this.name = Objects.requireNonNull(title, "name must not be null");
+        this.webSite = Objects.requireNonNull(webSite, "webSite must not be null");
+        this.periods = Objects.requireNonNull(periods, "periods must not be null");
     }
 
     public String getName() {

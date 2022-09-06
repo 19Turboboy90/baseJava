@@ -8,24 +8,35 @@ import ru.baseJava.webApp.util.HtmlUtil;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-//@WebServlet("/resume")
-public class resumeServlet extends HttpServlet {
+@WebServlet("/resume")
+public class ResumeServlet extends HttpServlet {
+    private enum THEME {
+        dark, light, purple
+    }
+
     private Storage storage;
+    private final Set<String> themes = new HashSet<>(); // https://stackoverflow.com/a/4936895/548473
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         storage = Config.get().getStorage();
+        for (THEME t : THEME.values()) {
+            themes.add(t.name());
+        }
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
@@ -35,6 +46,7 @@ public class resumeServlet extends HttpServlet {
         if (isCreate) {
             resume = new Resume(fullName);
         } else {
+            Config.get().checkImmutable(uuid);
             resume = storage.get(uuid);
             resume.setFullName(fullName);
         }
@@ -65,11 +77,10 @@ public class resumeServlet extends HttpServlet {
                     case EDUCATION:
                     case EXPERIENCE:
                         List<Organization> organizations = new ArrayList<>();
-                        String[] urls = request.getParameterValues(type.name() + "url");
-                        String[] nameOrg = request.getParameterValues(type.name() + "nameOrg");
+                        String[] webSite = request.getParameterValues(type.name() + "webSite");
                         for (int i = 0; i < values.length; i++) {
-                            String name = values[i];
-                            if (!HtmlUtil.isEmpty(name)) {
+                            String nameOrg = values[i];
+                            if (!HtmlUtil.isEmpty(nameOrg)) {
                                 List<Period> positions = new ArrayList<>();
                                 String pfx = type.name() + i;
                                 String[] startDates = request.getParameterValues(pfx + "startDate");
@@ -81,7 +92,7 @@ public class resumeServlet extends HttpServlet {
                                         positions.add(new Period(titles[j], DateUtil.parse(startDates[j]), DateUtil.parse(endDates[j]), descriptions[j]));
                                     }
                                 }
-                                organizations.add(new Organization(nameOrg[i], urls[i], positions));
+                                organizations.add(new Organization(nameOrg, webSite[i], positions));
                             }
                         }
                         resume.saveSections(type, new OrganizationSection(organizations));
@@ -94,12 +105,14 @@ public class resumeServlet extends HttpServlet {
         } else {
             storage.update(resume);
         }
-        response.sendRedirect("resume");
+        response.sendRedirect("resume?theme=" + getTheme(request));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         String uuid = request.getParameter("uuid");
         String action = request.getParameter("action");
+        request.setAttribute("theme", getTheme(request));
+
         if (action == null) {
             request.setAttribute("resumes", storage.getAllSorted());
             request.getRequestDispatcher("/WEB-INF/jsp/list.jsp").forward(request, response);
@@ -108,6 +121,7 @@ public class resumeServlet extends HttpServlet {
         Resume resume;
         switch (action) {
             case "delete":
+                Config.get().checkImmutable(uuid);
                 storage.delete(uuid);
                 response.sendRedirect("resume");
                 return;
@@ -160,5 +174,10 @@ public class resumeServlet extends HttpServlet {
         request.getRequestDispatcher(
                 ("view".equals(action) ? "/WEB-INF/jsp/view.jsp" : "/WEB-INF/jsp/edit.jsp")
         ).forward(request, response);
+    }
+
+    private String getTheme(HttpServletRequest request) {
+        String theme = request.getParameter("theme");
+        return themes.contains(theme) ? theme : THEME.light.name();
     }
 }

@@ -1,19 +1,19 @@
 :root {
-    --header-background: #7339D4;
+    --header-background: #8657d5;
     --header-text-color: #ECEEF2;
     --header-arrow-background: #FFFFFF;
     --footer-text-color: #F8F9FA;
     --footer-anchor-color: #F8F9FA;
     --anchor-color: #F8F9FA;
     --text-color: #ECEEF2;
-    --add-resume-text-color: #F8F9FA;
-    --body-background: #6129BD;
+    --add-resume-text-color: #191a1c;
+    --body-background: #7649bb;
     --table-header-text-color: #F8F9FA;
-    --table-header-background: #5A10D3;
+    --table-header-background: #7348b2;
     --table-text-color: #F8F9FA;
-    --table-odd-row-background: #6212E5;
-    --table-even-row-background: #6C1DEE;
-    --table-shadow-color: 0 0 50px rgba(67, 12, 156, 0.5);
+    --table-odd-row-background: #5c3a98;
+    --table-even-row-background: #6131b2;
+    --table-shadow-color: 0 0 50px rgba(106, 65, 175, 0.5);
     --input-field-background: #8A59DB;
     --input-field-shadow: #8A59DB;
     --spacer-background: #E0E4EA;
