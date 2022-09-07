@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resume>
-    <uuid>1c820218-01b6-4b5d-84ed-442f2beb6c94</uuid>
-    <fullName>IVAN IVANOV</fullName>
+    <uuid>4fa763ee-0210-4f51-ad98-823614c5cec9</uuid>
+    <fullName>NAME_3</fullName>
     <contacts>
         <entry>
             <key>PHONE</key>
@@ -34,15 +34,15 @@
     </contacts>
     <sections>
         <entry>
-            <key>PERSONAL</key>
-            <value xsi:type="textSection" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                <content>Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.</content>
-            </value>
-        </entry>
-        <entry>
             <key>OBJECTIVE</key>
             <value xsi:type="textSection" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                 <content>Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям</content>
+            </value>
+        </entry>
+        <entry>
+            <key>PERSONAL</key>
+            <value xsi:type="textSection" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                <content>Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.</content>
             </value>
         </entry>
         <entry>
@@ -73,17 +73,17 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
             <key>EXPERIENCE</key>
             <value xsi:type="organizationSection" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                 <organization>
-                    <title>Java Online Projects</title>
+                    <name>Java Online Projects</name>
                     <webSite>https://javaops.ru/</webSite>
                     <periods>
                         <title>Автор проекта.</title>
                         <startDate>2013-11-01</startDate>
-                        <endDate>2022-08-31</endDate>
+                        <endDate>2022-09-07</endDate>
                         <description>Создание, организация и проведение Java онлайн проектов и стажировок.</description>
                     </periods>
                 </organization>
                 <organization>
-                    <title>Wrike</title>
+                    <name>Wrike</name>
                     <webSite>https://www.wrike.com/</webSite>
                     <periods>
                         <title>Старший разработчик (backend).</title>
@@ -93,7 +93,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
                     </periods>
                 </organization>
                 <organization>
-                    <title>RIT Center</title>
+                    <name>RIT Center</name>
                     <webSite> </webSite>
                     <periods>
                         <title>Java архитектор</title>
@@ -103,7 +103,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
                     </periods>
                 </organization>
                 <organization>
-                    <title>Luxoft (Deutsche Bank)</title>
+                    <name>Luxoft (Deutsche Bank)</name>
                     <webSite>https://career.luxoft.com/</webSite>
                     <periods>
                         <title>Ведущий программист</title>
@@ -113,7 +113,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
                     </periods>
                 </organization>
                 <organization>
-                    <title>Yota</title>
+                    <name>Yota</name>
                     <webSite>https://www.yota.ru/</webSite>
                     <periods>
                         <title>Ведущий специалист</title>
@@ -123,7 +123,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
                     </periods>
                 </organization>
                 <organization>
-                    <title>Enkata</title>
+                    <name>Enkata</name>
                     <webSite>https://www.pega.com/products/platform/robotic-process-automation</webSite>
                     <periods>
                         <title>Разработчик ПО</title>
@@ -133,7 +133,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
                     </periods>
                 </organization>
                 <organization>
-                    <title>Siemens AG</title>
+                    <name>Siemens AG</name>
                     <webSite>https://www.siemens.com/global/en.html</webSite>
                     <periods>
                         <title>Инженер по аппаратному и программному тестированию</title>
@@ -143,7 +143,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
                     </periods>
                 </organization>
                 <organization>
-                    <title>Alcatel</title>
+                    <name>Alcatel</name>
                     <webSite>http://www.alcatel.ru/</webSite>
                     <periods>
                         <title>Разработчик ПО</title>
@@ -158,7 +158,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
             <key>EDUCATION</key>
             <value xsi:type="organizationSection" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                 <organization>
-                    <title>Coursera</title>
+                    <name>Coursera</name>
                     <webSite>https://www.coursera.org/</webSite>
                     <periods>
                         <title>'Functional Programming Principles in Scala' by Martin Odersky</title>
@@ -168,7 +168,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
                     </periods>
                 </organization>
                 <organization>
-                    <title>Luxoft</title>
+                    <name>Luxoft</name>
                     <webSite>https://ibs-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html</webSite>
                     <periods>
                         <title>Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'</title>
@@ -178,7 +178,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
                     </periods>
                 </organization>
                 <organization>
-                    <title>Siemens AG</title>
+                    <name>Siemens AG</name>
                     <webSite>https://new.siemens.com/ru/ru.html</webSite>
                     <periods>
                         <title>3 месяца обучения мобильным IN сетям (Берлин)</title>
@@ -188,7 +188,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
                     </periods>
                 </organization>
                 <organization>
-                    <title>Alcatel</title>
+                    <name>Alcatel</name>
                     <webSite>http://www.alcatel.ru/</webSite>
                     <periods>
                         <title>6 месяцев обучения цифровым телефонным сетям (Москва)</title>
@@ -198,7 +198,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
                     </periods>
                 </organization>
                 <organization>
-                    <title>Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики</title>
+                    <name>Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики</name>
                     <webSite>https://itmo.ru/ru/</webSite>
                     <periods>
                         <title>Аспирантура (программист С, С++)</title>
@@ -214,7 +214,7 @@ Scala: SBT, Play2, Specs2, Anorm, Spray, Akka
                     </periods>
                 </organization>
                 <organization>
-                    <title>Заочная физико-техническая школа при МФТИ</title>
+                    <name>Заочная физико-техническая школа при МФТИ</name>
                     <webSite>https://school.mipt.ru/</webSite>
                     <periods>
                         <title>Закончил с отличием</title>

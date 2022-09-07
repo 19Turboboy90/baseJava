@@ -7,8 +7,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="css/theme/${theme}.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/resume-list-styles.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/list.css">
     <title>Список всех резюме</title>
 </head>
 <body>
@@ -73,6 +73,5 @@
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
-<%--<jsp:include page="fragments/footer.jsp"/>--%>
 </body>
 </html>
