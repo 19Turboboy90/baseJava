@@ -16,7 +16,7 @@ public class Config {
 
     private final File storageDir;
     private final Storage storage;
-    private Set<String> immutableUuids = new HashSet<String>() {{
+    private final Set<String> immutableUuids = new HashSet<>() {{
         add("11111111-1111-1111-1111-111111111111");
         add("22222222-2222-2222-2222-222222222222");
     }};
