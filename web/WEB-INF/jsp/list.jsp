@@ -51,7 +51,7 @@
                                href="resume?uuid=${resume.uuid}&action=view&theme=${theme}">${resume.fullName}</a>
                         </td>
                         <td class="info-column">
-                            <%=ContactType.EMAIL.toLink(resume.getContact(ContactType.EMAIL))%>
+                            <%=ContactType.EMAIL.toHtml(resume.getContact(ContactType.EMAIL))%>
                         </td>
                         <td class="img-column">
                             <a class="no-underline-anchor" href="resume?uuid=${resume.uuid}&action=edit&theme=${theme}">
